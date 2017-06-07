@@ -1,0 +1,158 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Menu</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'css/AdminLTE.css' %}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{% static 'css/skins/_all-skins.min.css' %}">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+  <!-- jQuery 2.2.3 -->
+  <script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+  <!-- Bootstrap 3.3.6 -->
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <!-- FastClick -->
+  <script src="{% static 'plugins/fastclick/fastclick.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'js/app.min.js' %}"></script>
+
+  <style type="text/css">
+     .skin-black-light .sidebar-menu>li:hover>a, .skin-black-light .sidebar-menu>li.active>a{
+      background-color: #fcfcf6;
+    }
+    .skin-black-light .sidebar-menu>li>.treeview-menu{
+      background-color: #fcfcf6;
+    }
+    .skin-black-light .wrapper, .skin-black-light .main-sidebar, .skin-black-light .left-side{
+      background-color: white;
+    }
+    .skin-black-light .sidebar-menu>li.header{
+      background-color: white;
+    }
+    .content-wrapper, .right-side{
+      background-color: #f8f8e9;
+    }
+  </style>
+</head>
+<body class="hold-transition skin-black-light sidebar-mini">
+
+<div class="wrapper">
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="../../index2.html" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>BI</b></span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>BIDSS Technology</b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- User Account: style can be found in dropdown.less -->
+          <li>
+            <a href="#">
+              <span style="color:blue"><b>Bienvenido | {{user.username}}</b></span>
+            </a>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="{% url 'cerrar_sesion' %}" style="color: blue"><b>Cerrar Sesion</b></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="info">
+          <img src="{% static 'img/logo.png' %}" alt="User Image" width='150px'>
+        </div>
+      </div>
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">
+        <li class="header">MENU PRINCIPAL</li>
+        <li><a href="{% url 'ingreso_solicitud' %}"><i class="fa fa-circle-o"></i><span> Nueva Solicitud </span> </a></li>
+        <li><a href="{% url 'listado_solicitudes' %}"><i class="fa fa-circle-o"></i><span> Listado de Solicitudes </span> </a></li>
+        {% if request.user.is_superuser %}
+        {% endif %}
+
+
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {% block titulo %}
+      <section class="content-header">
+        <h1>
+         Help Desk BIDSS TECHONOLGY
+        </h1>
+      </section>
+    {% endblock %}
+
+    <!-- Main content -->
+    <section class="content">
+
+        {% block contenido %}
+        {% endblock %}
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong> Derechos Reservados ©2017 BiDSS </strong>
+
+  </footer>
+
+</div>
+<!-- ./wrapper -->
+
+
+{% block js %}
+{% endblock %}
+
+ <style type="text/css">
+    .user-panel>.info{
+      position: block;
+    }
+  </style>
+
+
+</body>
+</html>
