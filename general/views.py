@@ -10,6 +10,12 @@ from django.template import RequestContext
 from django.urls import reverse
 from django.contrib.auth import authenticate, login as auth_login, logout
 
+from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth.hashers  import make_password
+from django.contrib.auth.models import User
+from general.forms import *
+
 
 def cerrar_sesion(request):
 	logout(request)
@@ -34,12 +40,21 @@ def login(request):
 			}
 	return render(request, 'login.html', ctx)
 
+@login_required()
 def menu(request):
-	return render(request, 'principal.html', {})	
+	return render(request, 'base.html', {})	
 
 
 def ingreso_solicitud(request):
-	return render(request, 'nuevaSolicitud.html', {})	
+	form = DetalleTicketForm()
+	form2 = TicketForm()
+	ctx = {
+		'form':form,
+		'form2': form2,
+	}
+	return render(request, 'nuevaSolicitud.html', ctx)	
 
 def listado_solicitudes(request):
 	return render(request, 'listadoSolicitudes.html', {})	
+
+

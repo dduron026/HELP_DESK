@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Cliente(models.Model):
-	cliente = models.AutoField(db_column='CodCliente', primary_key=True)
-	nombre = models.CharField(db_column='NombreCliente', max_length=200, blank=True, null=True)
+	nombre_cliente = models.CharField(db_column='NombreCliente', max_length=200, blank=True, null=True)
+	correo_cliente = models.EmailField(db_column='CorreoCliente', blank=True, null=True)
 
 	class Meta:
 		db_table = 'Clientes'
@@ -14,8 +14,7 @@ class Cliente(models.Model):
 		return self.nombre
 
 class Proyecto(models.Model):
-	codProyecto = models.AutoField(db_column='CodProyecto', primary_key=True)
-	nombre = models.CharField(db_column='NombreProyecto', max_length=200, blank=True, null=True)
+	nombre_proyecto = models.CharField(db_column='NombreProyecto', max_length=200, blank=True, null=True)
 	cliente = models.ForeignKey('Cliente', db_column='CodCliente')
 
 	class Meta:
@@ -25,8 +24,8 @@ class Proyecto(models.Model):
 		return self.nombre
 
 
-class Estados(models.Model):
-	descripcion = models.CharField(db_column='Descripcion', max_length=200, blank=True, null=True)
+class Estado(models.Model):
+	descripcion_estado = models.CharField(db_column='DescripcionEstado', max_length=200, blank=True, null=True)
 
 	class Meta:
 		db_table = 'Estados'
@@ -36,9 +35,9 @@ class Estados(models.Model):
 		return self.descripcion
 
 
-class Personas(models.Model):
-	nombre = models.CharField(db_column='NombrePersona', max_length=200, blank=True, null=True)
-	codTipoPersona = models.ForeignKey('TipoPersonas', db_column='CodTipoPersona')
+class Persona(models.Model):
+	nombre_persona = models.CharField(db_column='NombrePersona', max_length=200, blank=True, null=True)
+	codTipoPersona = models.ForeignKey('TipoPersona', db_column='CodTipoPersona')
 	codUsuario = models.ForeignKey(User, db_column='CodUsuario')
 
 	class Meta:
@@ -47,8 +46,8 @@ class Personas(models.Model):
 	def __unicode__(self):
 		return self.nombre
 
-class TipoPersonas(models.Model):
-	descripcion = models.CharField(db_column='DecripcionTipoPersona', max_length=200, blank=True, null=True)
+class TipoPersona(models.Model):
+	descripcion_tipoPersona = models.CharField(db_column='DecripcionTipoPersona', max_length=200, blank=True, null=True)
 
 	class Meta:
 		db_table = 'TipoPersonas'
@@ -56,7 +55,7 @@ class TipoPersonas(models.Model):
 	def __unicode__(self):
 		return self.descripcion	
 
-class EncargadoClientes(models.Model):
+class EncargadoCliente(models.Model):
 	cliente = models.ForeignKey('Cliente', db_column='CodCliente')
 	codUsuario = models.ForeignKey(User, db_column='CodUsuario')
 
@@ -65,11 +64,11 @@ class EncargadoClientes(models.Model):
 
 	
 
-class Tickets(models.Model):
+class Ticket(models.Model):
 	cliente = models.ForeignKey('Cliente', db_column='CodCliente')
 	codProyecto = models.ForeignKey('Proyecto', db_column='CodProyecto')
-	codEncargadoCliente = models.ForeignKey('EncargadoClientes', db_column='CodEncargadoCliente')
-	codEstado = models.ForeignKey('Estados', db_column='CodEstado')
+	codEncargadoCliente = models.ForeignKey('EncargadoCliente', db_column='CodEncargadoCliente')
+	codEstado = models.ForeignKey('Estado', db_column='CodEstado')
 	comentario = models.TextField(max_length=500)
 	usuarioCreador = models.CharField(db_column='UsuarioCreador', max_length=200, blank=True, null=True)
 	UsuarioModificador = models.CharField(db_column='UsuarioModificador', max_length=200, blank=True, null=True)
@@ -83,18 +82,13 @@ class Tickets(models.Model):
 	def __unicode__(self):
 		return self.usuarioCreador
 
-class DetalleTickets(models.Model):
-	codTicket = models.ForeignKey('Tickets', db_column='CodTicket')
-	CHOICES = (
-		('A', 'ALTA'),
-		('M', 'MEDIA'),
-		('B', 'BAJA'),
-		)
-	prioridad = models.CharField(max_length=10, choices=CHOICES)
+class DetalleTicket(models.Model):
+	codTicket = models.ForeignKey('Ticket', db_column='CodTicket')
+	prioridad = models.CharField(max_length=10)
 	archivo = models.FileField(db_column='Archivo')
-	descripcion = models.CharField(db_column='DescripcionTicket', max_length=100, blank=True, null=True)
+	descripcion_ticket = models.CharField(db_column='DescripcionTicket', max_length=100, blank=True, null=True)
 	estadoDetalleTickets = models.CharField(db_column='EstadoDetalleTickets', max_length=100, blank=True, null=True)
-	asignadoA = models.ForeignKey('Personas', db_column='AsignadoA', blank=True, null=True)
+	asignadoA = models.ForeignKey('Persona', db_column='AsignadoA', blank=True, null=True)
 
 	class Meta:
 		db_table = 'DetalleTickets'

@@ -1,11 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Nueva solicitud</title>
-</head>
-<body>
-	<h1>AQUI NUEVA SOLICITUD</h1>
-	
-</body>
-</html>
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+
+{% block title %} Nueva Solicitud {% endblock %}
+
+ <!-- Content Header (Page header) -->
+    {% block titulo %}
+     <h3>Nueva Solicitud</h3> 
+    {% endblock %}
+
+     <!-- Main content -->
+    <section class="content">
+
+        {% block contenido %}
+
+      <form method="POST"> {% csrf_token %}
+        {{form.as_p}}
+        {{form2.as_p}}
+          
+      </form> 
+
+        {% endblock %}
+        }
+        }
+    </section>
+     <!-- /.content -->
