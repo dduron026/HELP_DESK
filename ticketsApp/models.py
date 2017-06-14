@@ -11,7 +11,7 @@ class Cliente(models.Model):
 		db_table = 'Clientes'
 
 	def __unicode__(self):
-		return self.nombre
+		return self.nombre_cliente
 
 class Proyecto(models.Model):
 	nombre_proyecto = models.CharField(db_column='NombreProyecto', max_length=200, blank=True, null=True)
@@ -21,7 +21,7 @@ class Proyecto(models.Model):
 		db_table = 'Proyectos'
 
 	def __unicode__(self):
-		return self.nombre
+		return self.nombre_proyecto
 
 
 class Estado(models.Model):
@@ -32,7 +32,7 @@ class Estado(models.Model):
 
 	
 	def __unicode__(self):
-		return self.descripcion
+		return self.descripcion_estado
 
 
 class Persona(models.Model):
@@ -44,7 +44,7 @@ class Persona(models.Model):
 		db_table = 'Personas'
 
 	def __unicode__(self):
-		return self.nombre
+		return self.nombre_persona
 
 class TipoPersona(models.Model):
 	descripcion_tipoPersona = models.CharField(db_column='DecripcionTipoPersona', max_length=200, blank=True, null=True)
@@ -53,7 +53,7 @@ class TipoPersona(models.Model):
 		db_table = 'TipoPersonas'
 
 	def __unicode__(self):
-		return self.descripcion	
+		return self.descripcion_tipoPersona
 
 class EncargadoCliente(models.Model):
 	cliente = models.ForeignKey('Cliente', db_column='CodCliente')
@@ -75,20 +75,14 @@ class Ticket(models.Model):
 	fechaCreacion = models.DateTimeField(db_column='FechaCreacion')
 	fechaModificacion = models.DateTimeField(db_column='FechaModificacion')
 	titulo = models.CharField(db_column='TituloTicket', max_length=200, blank=True, null=True)
+	prioridad = models.CharField(db_column='Prioridad', max_length=20)
+	archivo = models.FileField(db_column='Archivo')
+	descripcion_ticket = models.CharField(db_column='DescripcionTicket', max_length=100, blank=True, null=True)
+	asignadoA = models.ForeignKey('Persona', db_column='AsignadoA', blank=True, null=True)
+
+
 
 	class Meta:
 		db_table = 'Tickets'
 
-	def __unicode__(self):
-		return self.usuarioCreador
 
-class DetalleTicket(models.Model):
-	codTicket = models.ForeignKey('Ticket', db_column='CodTicket')
-	prioridad = models.CharField(max_length=10)
-	archivo = models.FileField(db_column='Archivo')
-	descripcion_ticket = models.CharField(db_column='DescripcionTicket', max_length=100, blank=True, null=True)
-	estadoDetalleTickets = models.CharField(db_column='EstadoDetalleTickets', max_length=100, blank=True, null=True)
-	asignadoA = models.ForeignKey('Persona', db_column='AsignadoA', blank=True, null=True)
-
-	class Meta:
-		db_table = 'DetalleTickets'

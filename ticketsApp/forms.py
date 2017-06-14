@@ -5,7 +5,7 @@ from general.models import *
 from ticketsApp.models import *
 from django.utils.translation import ugettext_lazy as _
 
-URGENCIA = (
+PRIORIDAD = (
 	('', '------'),
 	('Poca', 'Baja'),
 	('Mucha', 'Media'),
@@ -15,9 +15,10 @@ URGENCIA = (
 
 
 class TicketForm(ModelForm):
-
+	
+	prioridad = forms.ChoiceField(choices=PRIORIDAD, required=False)
 	comentario = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'4' ,'cols':'50'}), required=False)
-
+	descripcion_ticket = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'4' ,'cols':'50'}), label='Descripcion', required=False)
 	class Meta:
 		model = Ticket
 		fields = "__all__"
@@ -26,23 +27,21 @@ class TicketForm(ModelForm):
 			
 			'titulo': _('Titulo del Ticket'),
 			
-
-		
+	
+					
 		}
 
-class DetalleTicketForm(ModelForm):
+class ProyectoForm(ModelForm):
 
-	descripcion_ticket = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'4' ,'cols':'50'}), required=False)
-	prioridad = forms.ChoiceField(choices=URGENCIA, label='Prioridad del Ticket')
+	nombre_proyecto  = forms.ModelChoiceField(queryset=Proyecto.objects.all(), label='Proyecto', required=False)
+					
 
 	class Meta:
-		
-		model = DetalleTicket
+		model = Proyecto
 		fields = "__all__"
-		exclude = ['codTicket', 'estadoDetalleTickets', 'asignadoA'  ]
+		exclude = []
 		labels = {
-			'prioridad': _('Prioridad'),
-			'archivo': _('Adjuntar Archivo'),
-			'descripcion_ticket': _('Incidente'),
-		
-		}
+			
+			
+
+		}		

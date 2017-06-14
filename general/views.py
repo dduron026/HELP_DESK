@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.hashers  import make_password
 from django.contrib.auth.models import User
-from general.forms import *
+
 
 
 def cerrar_sesion(request):
@@ -40,21 +40,12 @@ def login(request):
 			}
 	return render(request, 'login.html', ctx)
 
+
 @login_required()
 def menu(request):
-	return render(request, 'base.html', {})	
+	return render(request, 'principal.html', {})	
 
 
-def ingreso_solicitud(request):
-	form = DetalleTicketForm()
-	form2 = TicketForm()
-	ctx = {
-		'form':form,
-		'form2': form2,
-	}
-	return render(request, 'nuevaSolicitud.html', ctx)	
-
-def listado_solicitudes(request):
-	return render(request, 'listadoSolicitudes.html', {})	
+	
 
 
