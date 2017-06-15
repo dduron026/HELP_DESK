@@ -10,5 +10,6 @@ urlpatterns = [
 	url(r'^$', views.login, name='login'),
 	url(r'^logout/$', views.cerrar_sesion, name='cerrar_sesion'),
 	url(r'^menu/$', views.menu, name='menu'),  
+	url(r'^accounts/login/$', views.login, name='login2'),  
 ]
 

@@ -9,6 +9,7 @@ from django.http import *
 from django.template import RequestContext
 from django.urls import reverse
 from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
 from ticketsApp.forms import *
@@ -17,7 +18,7 @@ from .models import *
 
 # Create your views here.
 
-
+@login_required()
 def ingreso_solicitud(request):
 	
 	formulario_ingreso = TicketForm()
@@ -29,20 +30,22 @@ def ingreso_solicitud(request):
 		ticket = Ticket()
 		clientes = Cliente()
 		proyecto = Proyecto()
+		print "-----------------------",request.user.id
 		encargado = EncargadoCliente.objects.get(codUsuario=request.user)
+
 		ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('nombre_proyecto'))
 		ticket.codEncargadoCliente = encargado
 		ticket.cliente = Cliente.objects.get(pk=encargado.cliente.pk)
 		ticket.codEstado = Estado.objects.get(pk=1)
-
-
-
-		print ticket.codProyecto
+		
 		ticket.titulo = None if request.POST.get('titulo') == '' else request.POST.get('titulo')
 		ticket.descripcion_ticket = None if request.POST.get('descripcion_ticket') == '' else request.POST.get('descripcion_ticket')
 		ticket.comentario = None if request.POST.get('comentario') == '' else request.POST.get('comentario')
 		ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')
 		
+		ticket.usuarioCreador = User.objects.get(id=request.user.pk)
+		ticket.UsuarioModificador = request.user
+
 		ticket.save()
 
 	ctx = {
@@ -53,7 +56,7 @@ def ingreso_solicitud(request):
 	}
 	return render(request, 'nuevaSolicitud.html', ctx)	
 
-
+@login_required()
 def listado_solicitudes(request):
 	return render(request, 'listadoSolicitudes.html', {})
 

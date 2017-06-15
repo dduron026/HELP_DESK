@@ -9,9 +9,9 @@ from django.utils.translation import ugettext_lazy as _
 
 PRIORIDAD = (
 	('', '------'),
-	('Poca', 'Baja'),
-	('Mucha', 'Media'),
-	('Extrema', 'Alta'),
+	('Baja', 'Baja'),
+	('Media', 'Media'),
+	('Alta', 'Alta'),
 )
 
 
