@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Cliente(models.Model):
 	nombre_cliente = models.CharField(db_column='NombreCliente', max_length=200, blank=True, null=True)
 	correo_cliente = models.EmailField(db_column='CorreoCliente', blank=True, null=True)
+	usuario = models.ForeignKey(User,db_column='Usuario', blank=True, null=True)
 
 	class Meta:
 		db_table = 'Clientes'
@@ -72,11 +73,11 @@ class Ticket(models.Model):
 	comentario = models.TextField(max_length=500)
 	usuarioCreador = models.CharField(db_column='UsuarioCreador', max_length=200, blank=True, null=True)
 	UsuarioModificador = models.CharField(db_column='UsuarioModificador', max_length=200, blank=True, null=True)
-	fechaCreacion = models.DateTimeField(db_column='FechaCreacion')
-	fechaModificacion = models.DateTimeField(db_column='FechaModificacion')
+	fechaCreacion = models.DateTimeField(db_column='FechaCreacion', auto_now_add=True)
+	fechaModificacion = models.DateTimeField(db_column='FechaModificacion', auto_now=True)
 	titulo = models.CharField(db_column='TituloTicket', max_length=200, blank=True, null=True)
 	prioridad = models.CharField(db_column='Prioridad', max_length=20)
-	archivo = models.FileField(db_column='Archivo')
+	archivo = models.FileField(db_column='Archivo', null=True, blank=True)
 	descripcion_ticket = models.CharField(db_column='DescripcionTicket', max_length=100, blank=True, null=True)
 	asignadoA = models.ForeignKey('Persona', db_column='AsignadoA', blank=True, null=True)
 

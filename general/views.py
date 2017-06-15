@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from django.http import *
 from django.template import RequestContext
 from django.urls import reverse
+from django.template import Context
 from django.contrib.auth import authenticate, login as auth_login, logout
 
 from django.contrib.auth.decorators import login_required
