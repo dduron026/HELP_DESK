@@ -17,23 +17,20 @@ PRIORIDAD = (
 
 
 class TicketForm(ModelForm):
+	titulo = forms.CharField(label='Título', required=True)
+	prioridad = forms.ChoiceField(choices=PRIORIDAD, required=True)
+	comentario = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'4' ,'cols':'50'}), required=True)
+	descripcion_ticket = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'4' ,'cols':'50'}), label='Descripción', required=True)
 	
-	prioridad = forms.ChoiceField(choices=PRIORIDAD, required=False)
-	comentario = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'4' ,'cols':'50'}), required=False)
-	descripcion_ticket = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'4' ,'cols':'50'}), label='Descripción', required=False)
 	class Meta:
 		model = Ticket
 		fields = "__all__"
 		exclude = []
-		labels = {
-			
-			'titulo': _('Titulo del Ticket'),
-					
-		}
+		labels = {}
 
 class ProyectoForm(ModelForm):
 
-	nombre_proyecto  = forms.ModelChoiceField(queryset=Proyecto.objects.all(), label='Proyecto', required=False)
+	nombre_proyecto  = forms.ModelChoiceField(queryset=Proyecto.objects.all(), label='Proyecto', required=True)
 					
 
 	class Meta:
