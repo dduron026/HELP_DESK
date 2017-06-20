@@ -30,7 +30,6 @@ def ingreso_solicitud(request):
 		ticket = Ticket()
 		clientes = Cliente()
 		proyecto = Proyecto()
-		print "-----------------------",request.user.id
 		encargado = EncargadoCliente.objects.get(codUsuario=request.user)
 
 		ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('nombre_proyecto'))
@@ -58,7 +57,10 @@ def ingreso_solicitud(request):
 
 @login_required()
 def listado_solicitudes(request):
-	return render(request, 'listadoSolicitudes.html', {})
+
+	lista = Ticket.objects.all().order_by('id')
+
+	return render(request, 'listadoSolicitudes.html', {'lista':lista})
 
 
 

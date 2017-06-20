@@ -47,6 +47,12 @@ def menu(request):
 	return render(request, 'principal.html', {})	
 
 
+def index(request):
+	
+	return render(request, 'index.html', {})
+
+
+
 	
 
 
