@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap %}
+
+{% block title %} Listado de solicitudes {% endblock %}
+{% block contenido %}
+
+<link rel="stylesheet" href="{% static 'plugins/datatables/dataTables.bootstrap.css' %}">
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/dataTables.bootstrap.min.js' %}"></script>
+
+<style>
+	.select2-container .select2-selection--single .select2-selection__rendered{
+		margin-top: 0px;
+	}
+	.nav-tabs-custom > .nav-tabs > li.active{
+		border-top-color:#00a65a;
+	}
+	.sub-style {
+		font-family: Tahoma, Verdana, Segoe, sans-serif;
+		color: #269AFF;
+		font-size: 12;
+		font-weight: bold;
+	}
+</style>
+
+
+<div class="box box-primary">
+
+
+	<div class="box-body ">
+	<p class="pull-right">Fecha: {% now 'd-m-Y' %}</p>
+   
+   <!-- page-header -->
+      <p class="text-center sub-style">LISTA DE TICKETS INGRESADOS AL SISTEMA</p><hr>
+
+	<table id="tabla" class="table table-bordered table-hover table-responsive">
+		
+		<thead>
+           
+               <tr>
+                <th>#</th>
+                <th>PRIORIDAD</th>
+                <th>PROYECTO</th>
+                <th width="170px">DESCRIPCION</th>
+                <th width="170px">COMENTARIO</th>
+                
+                {% if request.user.is_superuser %}
+                 <th>ESTADO</th>
+                 <th>ASIGNADO A:</th>                
+                {% endif %}                                      
+                <th>OPCIONES</th>  
+           </tr>     
+
+          </thead>
+		<tbody>
+			{% if lista %}
+              {% for data in lista %}            
+             <tr>
+               <td>{{ data.id }}</td>
+                <td>{{ data.prioridad }}</td>
+                <td>{{ data.codProyecto }}</td>
+               <td>{{ data.descripcion_ticket }}</td>
+               <td>{{ data.comentario }}</td>
+               {% if request.user.is_superuser %}
+               <td>{{ data.codEstado }}</td>
+               <td>{{ data.asignadoA }}</td>
+               {% endif %}
+             
+                <td> 
+                
+                  <div  class="dropdown">
+                      <button  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        
+                        <li><a href="{% url 'ticket_editar' data.id %}">Editar</a></li>
+                        <li><a href="" class="">Cerrar Ticket</a></li>
+                       
+                      </ul>
+                  </div>
+                  
+                </td>          
+
+             </tr> 
+              {% endfor %}
+              {% else %}
+              <h4>no hay Registros</h4>
+
+            {% endif %}					
+		
+		</tbody>
+	</table>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#tabla").DataTable();
+	
+	})
+</script>
+{% endblock %}

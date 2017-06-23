@@ -16,27 +16,30 @@ from ticketsApp.forms import *
 from .models import * 
 
 
+
+
 # Create your views here.
 
 @login_required()
 def ingreso_solicitud(request):
+	myuser = request.user
+	print myuser.has_perm('ticketsApp.change_ticket')
 	
 	formulario_ingreso = TicketForm()
-	formulario_proyecto = ProyectoForm()
-	# GET
+	
+	#GET
 
 	#POST
 	if request.POST:
 		ticket = Ticket()
 		clientes = Cliente()
 		proyecto = Proyecto()
-		encargado = EncargadoCliente.objects.get(codUsuario=request.user)
+		encargado = EncargadoCliente.objects.get(codUsuario=request.user)	
 
-		ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('nombre_proyecto'))
+		ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('codProyecto'))
 		ticket.codEncargadoCliente = encargado
 		ticket.cliente = Cliente.objects.get(pk=encargado.cliente.pk)
-		ticket.codEstado = Estado.objects.get(pk=1)
-		
+		ticket.codEstado = Estado.objects.get(pk=1)			
 		ticket.titulo = None if request.POST.get('titulo') == '' else request.POST.get('titulo')
 		ticket.descripcion_ticket = None if request.POST.get('descripcion_ticket') == '' else request.POST.get('descripcion_ticket')
 		ticket.comentario = None if request.POST.get('comentario') == '' else request.POST.get('comentario')
@@ -50,7 +53,7 @@ def ingreso_solicitud(request):
 	ctx = {
 	
 		'formulario_ingreso': formulario_ingreso,
-		'formulario_proyecto': formulario_proyecto,
+		
 		
 	}
 	return render(request, 'nuevaSolicitud.html', ctx)	
@@ -58,13 +61,43 @@ def ingreso_solicitud(request):
 @login_required()
 def listado_solicitudes(request):
 
-	lista = Ticket.objects.all().order_by('id')
-
-	return render(request, 'listadoSolicitudes.html', {'lista':lista})
-
+	lista = Ticket.objects.all().order_by('id')	
+	return render(request, 'ticket_listado.html', {'lista':lista})
 
 
+@login_required()
+def ticket_editar(request, id_ticket):
+	ticket = Ticket.objects.get(id=id_ticket)
+	
+	#GET
+	if request.method == 'GET':
+		formulario_ingreso = TicketForm(instance=ticket)
+
+	
+	else:
+		formulario_ingreso = TicketForm(request.POST, instance=ticket)			
+		encargado = EncargadoCliente.objects.get(codUsuario=request.user)
+		ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('codProyecto'))
+		ticket.codEncargadoCliente = encargado
+		ticket.cliente = Cliente.objects.get(pk=encargado.cliente.pk)
+		ticket.codEstado = Estado.objects.get(pk=1)			
+		ticket.titulo = None if request.POST.get('titulo') == '' else request.POST.get('titulo')
+		ticket.descripcion_ticket = None if request.POST.get('descripcion_ticket') == '' else request.POST.get('descripcion_ticket')
+		ticket.comentario = None if request.POST.get('comentario') == '' else request.POST.get('comentario')
+		ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')
+		
+		ticket.usuarioCreador = User.objects.get(id=request.user.pk)
+		ticket.UsuarioModificador = request.user
 
 
+		ticket.save()
+		return redirect('listado_solicitudes')
 
 
+	ctx = {
+		'formulario_ingreso': formulario_ingreso,
+		
+	}	
+
+	return render(request, 'ticket_editar.html', ctx)		
+		

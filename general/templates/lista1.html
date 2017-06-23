@@ -51,24 +51,30 @@
    <!-- page-header -->
       <p class="text-center sub-style">LISTA DE TICKETS INGRESADOS AL SISTEMA</p>
 
-      <div class="table-responsive">
+   <!--    <div class="table-responsive">
           <table class="table data-table">
             
           </table>
-    </div>     
+    </div>  -->    
         
         <table class="table table-bordered table-striped table-hover  table-responsive" >
+
+
 
           <thead>
             <tr>
                 <td><b>#</b></td>
                 <td><b>PRIORIDAD</b></td>
-                <td><b>TITULO</b></td>
-                <td><b>DESCRIPCION</b></td>
-                <td><b>COMENTARIO</b></td> 
-                {% if request.user.is_superuser %}                        
-                <td><b>OPCIONES</b></td>   
-                {% endif %}                      
+                <td><b>PROYECTO</b></td>
+                <!-- <td><b>TITULO</b></td> -->
+                <td width="280px"><b>DESCRIPCION</b></td>
+                <td width="280px"><b>COMENTARIO</b></td> 
+                {% if request.user.is_superuser %}
+                <td><b>ESTADO</b></td> 
+                <td><b>ASIGNADO A:</b></td>   
+                {% endif %}                                      
+                <td style="text-align: center;"><b>OPCIONES</b></td>   
+                                      
 
             </tr>
 
@@ -79,29 +85,29 @@
              <tr>
                <td>{{ data.id }}</td>
                 <td>{{ data.prioridad }}</td>
-               <td>{{ data.titulo }}</td>
+                <td>{{ data.codProyecto }}</td>
                <td>{{ data.descripcion_ticket }}</td>
                <td>{{ data.comentario }}</td>
+               {% if request.user.is_superuser %}
+               <td>{{ data.codEstado }}</td>
+               <td>{{ data.asignadoA }}</td>
+               {% endif %}
              
-                <td> 
-                {% if request.user.is_superuser %}
-                  <div class="dropdown">
-                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <td style="text-align: center;"> 
+                
+                  <div  class="dropdown">
+                      <button  class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <span class="glyphicon glyphicon-align-justify"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="">Detalle</a></li>
-                        <li><a href="">Editar</a></li>
-                        <li><a href="" class="eliminar">Cerrar Ticket</a></li>
+                        
+                        <li><a href="{% url 'ticket_editar' data.id %}">Editar</a></li>
+                        <li><a href="" class="">Cerrar Ticket</a></li>
                        
                       </ul>
                   </div>
-                  {% endif %}
-                </td> 
-           
-              
-               
-                          
+                  
+                </td>          
 
              </tr> 
               {% endfor %}

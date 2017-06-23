@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load bootstrap %}
 
-{% block title %} Nueva Solicitud {% endblock %}
+{% block title %} Editar Ticket {% endblock %}
         
 {% block contenido %}
 <script src="{% static 'plugins/select2/select2.min.js' %}"></script>
@@ -45,27 +45,21 @@
                 no-repeat;
   }
 
-
-
 </style> 
 <div class="box box-primary  with-border">
   <div class="box-body">
-  <p class="text-center sub-style">INGRESO DE TICKETS</p>
+  <p class="text-center sub-style">EDITAR TICKET</p>
     
     <form method="post" accept-charset="utf-8" id="formulario" class="form-horizontal" enctype='multipart/form-data' > <!-- novalidate -->
       {% csrf_token %}
-      <!-- <p class="page-header"></p> -->
-
-
-      <div class="loader"></div>
-
+    
       <p class="page-header"></p>
-      <div class="row">
+         <div class="row">
         <div class="col-sm-8">
           {{formulario_ingreso.codProyecto|bootstrap_horizontal:'col-xs-4'}}
         </div>    
       </div>
-
+        
       
       <div class="row">
            <div class="col-sm-8">
@@ -93,7 +87,7 @@
       </div>
             
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary pull-left" id='btn-actualizar'>Enviar Ticket</button>
+        <button type="submit" class="btn btn-primary pull-left" id='btn-actualizar'>Guardar Cambios</button>
       </div>
     </form>
   </div>
