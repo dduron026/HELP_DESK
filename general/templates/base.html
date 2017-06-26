@@ -112,7 +112,9 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header"><h4><strong style="color: #269AFF " >MENU PRINCIPAL</strong></h4></li>
+        
          <li><a href="{% url 'ingreso_solicitud' %}"><i class="fa fa-circle-o"></i><span> Nueva Solicitud </span> </a></li> 
+        
         <li><a href="{% url 'listado_solicitudes' %}"><i class="fa fa-circle-o"></i><span> Listado de Solicitudes </span> </a></li>     
         
         {% if request.user.is_superuser %}

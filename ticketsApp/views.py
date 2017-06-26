@@ -16,16 +16,20 @@ from ticketsApp.forms import *
 from .models import * 
 
 
+def user_unicode_patch(self): #ESTO SIRVE PARA MOSTRAR EL NOMBRE Y APELLIDO DEL USUARIO
+	return '%s %s' % (self.first_name, self.last_name)
 
-
+User.__unicode__= user_unicode_patch
 # Create your views here.
+
 
 @login_required()
 def ingreso_solicitud(request):
-	myuser = request.user
-	print myuser.has_perm('ticketsApp.change_ticket')
+	# myuser = request.user
+	# print myuser.has_perm('ticketsApp.change_ticket')
 	
 	formulario_ingreso = TicketForm()
+
 	
 	#GET
 
@@ -34,17 +38,15 @@ def ingreso_solicitud(request):
 		ticket = Ticket()
 		clientes = Cliente()
 		proyecto = Proyecto()
-		encargado = EncargadoCliente.objects.get(codUsuario=request.user)	
-
+		encargado = EncargadoCliente.objects.get(codUsuario=request.user)
 		ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('codProyecto'))
 		ticket.codEncargadoCliente = encargado
 		ticket.cliente = Cliente.objects.get(pk=encargado.cliente.pk)
-		ticket.codEstado = Estado.objects.get(pk=1)			
+		ticket.codEstado = Estado.objects.get(pk=1)	
 		ticket.titulo = None if request.POST.get('titulo') == '' else request.POST.get('titulo')
 		ticket.descripcion_ticket = None if request.POST.get('descripcion_ticket') == '' else request.POST.get('descripcion_ticket')
 		ticket.comentario = None if request.POST.get('comentario') == '' else request.POST.get('comentario')
-		ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')
-		
+		ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')		
 		ticket.usuarioCreador = User.objects.get(id=request.user.pk)
 		ticket.UsuarioModificador = request.user
 
@@ -88,6 +90,7 @@ def ticket_editar(request, id_ticket):
 		
 		ticket.usuarioCreador = User.objects.get(id=request.user.pk)
 		ticket.UsuarioModificador = request.user
+		ticket.asignadoA = User.objects.get(pk=request.POST.get('asignadoA'))
 
 
 		ticket.save()

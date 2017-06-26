@@ -26,5 +26,5 @@ class TicketForm(ModelForm):
 		model = Ticket
 		fields = "__all__"
 		exclude = []
-		labels = {'codProyecto': ('Proyecto')}
+		labels = {'codProyecto': ('Proyecto'),'asignadoA': ('Asignado A:')}
 

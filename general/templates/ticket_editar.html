@@ -58,8 +58,7 @@
         <div class="col-sm-8">
           {{formulario_ingreso.codProyecto|bootstrap_horizontal:'col-xs-4'}}
         </div>    
-      </div>
-        
+      </div>        
       
       <div class="row">
            <div class="col-sm-8">
@@ -85,6 +84,14 @@
         </div> 
        
       </div>
+      {% if request.user.is_superuser %}
+        <div class="row">
+        <div class="col-sm-8">
+          {{formulario_ingreso.asignadoA|bootstrap_horizontal:'col-xs-4'}}
+        </div> 
+       
+      </div>
+      {% endif %}
             
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary pull-left" id='btn-actualizar'>Guardar Cambios</button>
@@ -93,5 +100,5 @@
   </div>
 </div>
 
-{% endblock %}  
+{% endblock %}
      <!-- /.content -->

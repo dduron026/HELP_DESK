@@ -74,8 +74,9 @@
                         <span class="glyphicon glyphicon-align-justify"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        
+                        {% if perms.ticketsApp.change_ticket %}
                         <li><a href="{% url 'ticket_editar' data.id %}">Editar</a></li>
+                        {% endif %}
                         <li><a href="" class="">Cerrar Ticket</a></li>
                        
                       </ul>

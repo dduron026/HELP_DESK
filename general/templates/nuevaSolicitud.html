@@ -6,6 +6,7 @@
         
 {% block contenido %}
 <script src="{% static 'plugins/select2/select2.min.js' %}"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
 <link rel="stylesheet" href="{% static 'plugins/select2/select2-bootstrap.min.css' %}">
 
@@ -51,6 +52,7 @@
 <div class="box box-primary  with-border">
   <div class="box-body">
   <p class="text-center sub-style">INGRESO DE TICKETS</p>
+  
     
     <form method="post" accept-charset="utf-8" id="formulario" class="form-horizontal" enctype='multipart/form-data' > <!-- novalidate -->
       {% csrf_token %}
@@ -91,6 +93,7 @@
         </div> 
        
       </div>
+    
             
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary pull-left" id='btn-actualizar'>Enviar Ticket</button>
