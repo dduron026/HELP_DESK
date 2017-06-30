@@ -25,15 +25,8 @@ User.__unicode__= user_unicode_patch
 
 @login_required()
 def ingreso_solicitud(request):
-	# myuser = request.user
-	# print myuser.has_perm('ticketsApp.change_ticket')
 	
-	formulario_ingreso = TicketForm()
-
-	
-	#GET
-
-	#POST
+	formulario_ingreso = TicketForm()	
 	if request.POST:
 		ticket = Ticket()
 		clientes = Cliente()
@@ -52,11 +45,8 @@ def ingreso_solicitud(request):
 
 		ticket.save()
 
-	ctx = {
-	
-		'formulario_ingreso': formulario_ingreso,
-		
-		
+	ctx = {	
+		'formulario_ingreso': formulario_ingreso,		
 	}
 	return render(request, 'nuevaSolicitud.html', ctx)	
 
@@ -66,6 +56,9 @@ def listado_solicitudes(request):
 	lista = Ticket.objects.all().order_by('id')	
 	return render(request, 'ticket_listado.html', {'lista':lista})
 
+@login_required()
+def ticket_cerrar(request):	
+	return render(request, 'ticket_cerrar.html', {})
 
 @login_required()
 def ticket_editar(request, id_ticket):
@@ -73,9 +66,7 @@ def ticket_editar(request, id_ticket):
 	
 	#GET
 	if request.method == 'GET':
-		formulario_ingreso = TicketForm(instance=ticket)
-
-	
+		formulario_ingreso = TicketForm(instance=ticket)	
 	else:
 		formulario_ingreso = TicketForm(request.POST, instance=ticket)			
 		encargado = EncargadoCliente.objects.get(codUsuario=request.user)
@@ -90,17 +81,15 @@ def ticket_editar(request, id_ticket):
 		
 		ticket.usuarioCreador = User.objects.get(id=request.user.pk)
 		ticket.UsuarioModificador = request.user
-		ticket.asignadoA = User.objects.get(pk=request.POST.get('asignadoA'))
-
+		if request.user.is_superuser:
+			ticket.asignadoA = User.objects.get(pk=request.POST.get('asignadoA'))
 
 		ticket.save()
 		return redirect('listado_solicitudes')
-
 
 	ctx = {
 		'formulario_ingreso': formulario_ingreso,
 		
 	}	
-
 	return render(request, 'ticket_editar.html', ctx)		
 		

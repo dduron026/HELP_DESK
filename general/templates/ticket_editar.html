@@ -88,14 +88,21 @@
         <div class="row">
         <div class="col-sm-8">
           {{formulario_ingreso.asignadoA|bootstrap_horizontal:'col-xs-4'}}
-        </div> 
-       
+        </div>        
       </div>
       {% endif %}
             
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary pull-left" id='btn-actualizar'>Guardar Cambios</button>
+      <div class="row">
+        
+        <div class="col-sm-8">
+          <button style="width: 150px; height: 50px;" type="submit" class="btn btn-primary pull-right" id='btn-actualizar'><h4>GUARDAR</h4></button>
+          <a class="btn btn-success pull-right" style="width: 150px; height: 50px;" href="{% url 'listado_solicitudes' %}"><h4>CANCELAR</h4></a>
+        </div>
       </div>
+        
+        
+       
+    
     </form>
   </div>
 </div>

@@ -6,7 +6,7 @@
         
 {% block contenido %}
 <script src="{% static 'plugins/select2/select2.min.js' %}"></script>
-<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
 <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
 <link rel="stylesheet" href="{% static 'plugins/select2/select2-bootstrap.min.css' %}">
 
@@ -92,14 +92,20 @@
           {{formulario_ingreso.prioridad|bootstrap_horizontal:'col-xs-4'}}
         </div> 
        
-      </div>
-    
-            
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary pull-left" id='btn-actualizar'>Enviar Ticket</button>
-      </div>
+      </div>   
+      <hr>   
+              <div class="row">
+         <div class="col-sm-8">
+         <button style="width: 150px; height: 50px;" type="reset" class="btn btn-warning pull-right" id='btn-guardar'>LIMPIAR</button>
+        <button style="width: 150px; height: 50px; float: left;" type="submit" class="btn btn-primary pull-right" id='btn-guardar'>ENVIAR TICKET</button>
+  
     </form>
-  </div>
+
+           
+         </div>
+       </div>     
+       </div>     
+
 </div>
 
 {% endblock %}  
