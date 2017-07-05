@@ -22,6 +22,7 @@ def cerrar_sesion(request):
 	logout(request)
 	return redirect('login')
 
+
 def login(request):
 
 	ctx = {}
@@ -39,12 +40,12 @@ def login(request):
 				 'error': True,
 				 'username': username,
 			}
-	return render(request, 'login.html', ctx)
+	return render(request, 'login.html', ctx)	
 
 
 @login_required()
 def menu(request):
-	return render(request, 'principal.html', {})	
+	return render(request, 'menu_principal.html', {})	
 
 
 

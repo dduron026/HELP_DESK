@@ -2,9 +2,16 @@
 {% load staticfiles %}
 {% load bootstrap %}
 
+
+
+
+
 {% block title %} Nueva Solicitud {% endblock %}
         
 {% block contenido %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
 <script src="{% static 'plugins/select2/select2.min.js' %}"></script>
 
 <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
@@ -49,7 +56,7 @@
 
 
 </style> 
-<div class="box box-primary  with-border">
+<div class="box box-primary with-border">
   <div class="box-body">
   <p class="text-center sub-style">INGRESO DE TICKETS</p>
   
@@ -58,10 +65,7 @@
       {% csrf_token %}
       <!-- <p class="page-header"></p> -->
 
-
-      <div class="loader"></div>
-
-      <p class="page-header"></p>
+  <br>
       <div class="row">
         <div class="col-sm-8">
           {{formulario_ingreso.codProyecto|bootstrap_horizontal:'col-xs-4'}}
@@ -96,8 +100,8 @@
       <hr>   
               <div class="row">
          <div class="col-sm-8">
-         <button style="width: 150px; height: 50px;" type="reset" class="btn btn-warning pull-right" id='btn-guardar'>LIMPIAR</button>
-        <button style="width: 150px; height: 50px; float: left;" type="submit" class="btn btn-primary pull-right" id='btn-guardar'>ENVIAR TICKET</button>
+         <button style="width: 150px; height: 50px;" type="reset" class="btn btn-warning pull-right" id='btn-guardar'><i class="glyphicon glyphicon-repeat"></i> LIMPIAR</button>
+        <button style="width: 150px; height: 50px; float: left;" type="submit" class="btn btn-info pull-right " id='btn-guardar'><i class="glyphicon glyphicon-send " ></i> ENVIAR TICKET</button>
   
     </form>
 

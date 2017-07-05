@@ -1,30 +1,28 @@
 from django.shortcuts import render
 
-# Create your views here.
-
 # -*- coding: utf-8 -*-
-
 from django.shortcuts import render, redirect
 from django.http import *
 from django.template import RequestContext
 from django.urls import reverse
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth.models import User
 from ticketsApp.forms import *
 from .models import * 
+ 
+ 
 
 
-def user_unicode_patch(self): #ESTO SIRVE PARA MOSTRAR EL NOMBRE Y APELLIDO DEL USUARIO
+def user_unicode_patch(self): #PARA MOSTRAR EL NOMBRE Y APELLIDO DEL USUARIO
 	return '%s %s' % (self.first_name, self.last_name)
 
 User.__unicode__= user_unicode_patch
-# Create your views here.
-
 
 @login_required()
 def ingreso_solicitud(request):
+
+	import smtplib
 	
 	formulario_ingreso = TicketForm()	
 	if request.POST:
@@ -43,6 +41,24 @@ def ingreso_solicitud(request):
 		ticket.usuarioCreador = User.objects.get(id=request.user.pk)
 		ticket.UsuarioModificador = request.user
 
+		fromaddr = 'denis.duron@bi-dss.com'
+		toaddrs  = ['denisduron83@gmail.com', 'denis_duron@hotmail.com']
+		# asunto = 'Nuevo Ticket Ingresado al sistema'
+		msg = 'Correo enviado utilizando Python + Django BIDSS' 	 
+		 
+		# Datos
+		username = 'denis.duron@bi-dss.com'
+		password = 'Bidss2017'
+		 
+		# Enviando el correo
+
+		server = smtplib.SMTP('smtp.office365.com:587')
+		server.starttls()
+		server.login(username,password)
+		server.sendmail(fromaddr, toaddrs, msg)
+		server.quit()
+
+
 		ticket.save()
 
 	ctx = {	
@@ -50,11 +66,14 @@ def ingreso_solicitud(request):
 	}
 	return render(request, 'nuevaSolicitud.html', ctx)	
 
+
 @login_required()
 def listado_solicitudes(request):
 
 	lista = Ticket.objects.all().order_by('id')	
 	return render(request, 'ticket_listado.html', {'lista':lista})
+
+
 
 @login_required()
 def ticket_cerrar(request):	
@@ -86,10 +105,14 @@ def ticket_editar(request, id_ticket):
 
 		ticket.save()
 		return redirect('listado_solicitudes')
-
 	ctx = {
-		'formulario_ingreso': formulario_ingreso,
-		
+		'formulario_ingreso': formulario_ingreso,		
 	}	
-	return render(request, 'ticket_editar.html', ctx)		
+	return render(request, 'ticket_editar.html', ctx)	
+
+
+def ticket_detalle(request, id_ticket):
+	detalle = Ticket.objects.get(id=id_ticket)
+
+	return render(request, 'ticket_detalle.html', {'detalle': detalle})
 		
