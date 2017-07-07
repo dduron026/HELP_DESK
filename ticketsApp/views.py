@@ -11,6 +11,9 @@ from django.contrib.auth.models import User
 from ticketsApp.forms import *
 from .models import * 
  
+import smtplib
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
  
 
 
@@ -22,7 +25,6 @@ User.__unicode__= user_unicode_patch
 @login_required()
 def ingreso_solicitud(request):
 
-	import smtplib
 	
 	formulario_ingreso = TicketForm()	
 	if request.POST:
@@ -39,32 +41,43 @@ def ingreso_solicitud(request):
 		ticket.comentario = None if request.POST.get('comentario') == '' else request.POST.get('comentario')
 		ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')		
 		ticket.usuarioCreador = User.objects.get(id=request.user.pk)
-		ticket.UsuarioModificador = request.user
+		ticket.UsuarioModificador = request.user		
+		ticket.save()	
 
-		fromaddr = 'denis.duron@bi-dss.com'
-		toaddrs  = ['denisduron83@gmail.com', 'denis_duron@hotmail.com']
-		# asunto = 'Nuevo Ticket Ingresado al sistema'
-		msg = 'Correo enviado utilizando Python + Django BIDSS' 	 
-		 
-		# Datos
+		remitente = 'denis.duron@bi-dss.com'
+		destinatario = "denisduron83@gmail.com"
+				
+		msg = MIMEMultipart()
+
+		msg['From'] = remitente
+		msg['To'] = destinatario
+		# msg['To'] = ", ".join(destinatario)
+		msg['Subject'] = '{0}{1}{2}{3}{4}{5}{6}'.format('TICKET #', ' ', ticket.pk,' ', 'de', ' ', ticket.codProyecto)
+
+		body = 'Saludos <b>Denis</b>,<br> el usuario <b>{0}{1}{2}{3}</b> ha reportado el ticket # <b>[{4}]</b> con nivel de urgencia <b>{5}</b>.<br><b>[Prueba].<b>'.format(request.user.first_name, ' ', request.user.last_name, ' ',ticket.pk, ticket.prioridad ) 
+
+		msg.attach(MIMEText(body.encode('utf-8'), 'html', 'utf-8'))
+
+	
 		username = 'denis.duron@bi-dss.com'
 		password = 'Bidss2017'
-		 
-		# Enviando el correo
 
-		server = smtplib.SMTP('smtp.office365.com:587')
-		server.starttls()
-		server.login(username,password)
-		server.sendmail(fromaddr, toaddrs, msg)
-		server.quit()
-
-
-		ticket.save()
+	
+		try:
+			server = smtplib.SMTP('smtp.office365.com:587')
+			server.starttls()
+			server.login(username,password)
+			server.sendmail(remitente, destinatario, msg.as_string())
+			server.quit()
+		except Exception as e:
+			print e
 
 	ctx = {	
 		'formulario_ingreso': formulario_ingreso,		
 	}
 	return render(request, 'nuevaSolicitud.html', ctx)	
+
+
 
 
 @login_required()
@@ -79,32 +92,72 @@ def listado_solicitudes(request):
 def ticket_cerrar(request):	
 	return render(request, 'ticket_cerrar.html', {})
 
+
+
 @login_required()
 def ticket_editar(request, id_ticket):
 	ticket = Ticket.objects.get(id=id_ticket)
 	
 	#GET
-	if request.method == 'GET':
-		formulario_ingreso = TicketForm(instance=ticket)	
-	else:
-		formulario_ingreso = TicketForm(request.POST, instance=ticket)			
-		encargado = EncargadoCliente.objects.get(codUsuario=request.user)
-		ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('codProyecto'))
-		ticket.codEncargadoCliente = encargado
-		ticket.cliente = Cliente.objects.get(pk=encargado.cliente.pk)
-		ticket.codEstado = Estado.objects.get(pk=1)			
-		ticket.titulo = None if request.POST.get('titulo') == '' else request.POST.get('titulo')
-		ticket.descripcion_ticket = None if request.POST.get('descripcion_ticket') == '' else request.POST.get('descripcion_ticket')
-		ticket.comentario = None if request.POST.get('comentario') == '' else request.POST.get('comentario')
-		ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')
-		
-		ticket.usuarioCreador = User.objects.get(id=request.user.pk)
-		ticket.UsuarioModificador = request.user
-		if request.user.is_superuser:
-			ticket.asignadoA = User.objects.get(pk=request.POST.get('asignadoA'))
+	try:
 
-		ticket.save()
-		return redirect('listado_solicitudes')
+		if request.method == 'GET':
+			formulario_ingreso = TicketForm(instance=ticket)	
+		else:
+			formulario_ingreso = TicketForm(request.POST, instance=ticket)			
+			encargado = EncargadoCliente.objects.get(codUsuario=request.user)
+			ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('codProyecto'))
+			ticket.codEncargadoCliente = encargado
+			ticket.cliente = Cliente.objects.get(pk=encargado.cliente.pk)
+			ticket.codEstado = Estado.objects.get(pk=1)			
+			ticket.titulo = None if request.POST.get('titulo') == '' else request.POST.get('titulo')
+			ticket.descripcion_ticket = None if request.POST.get('descripcion_ticket') == '' else request.POST.get('descripcion_ticket')
+			ticket.comentario = None if request.POST.get('comentario') == '' else request.POST.get('comentario')
+			ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')
+			
+			ticket.usuarioCreador = User.objects.get(id=request.user.pk)
+			ticket.UsuarioModificador = request.user
+			if request.user.is_superuser:
+				ticket.asignadoA = User.objects.get(pk=request.POST.get('asignadoA'))
+
+			ticket.save()
+
+			remitente = 'denis.duron@bi-dss.com'
+			destinatario = ticket.asignadoA.email;
+			print destinatario
+					
+			msg = MIMEMultipart()
+
+			msg['From'] = remitente
+			msg['To'] = destinatario
+			msg['Subject'] = '{0}{1}{2}'.format('TICKET #', ' ', ticket.pk)
+
+			body = 'Saludos <b>{0}</b>,<br>una nueva solicitud le ha sido asignada'.format(ticket.asignadoA) 
+
+			msg.attach(MIMEText(body.encode('utf-8'), 'html', 'utf-8'))
+		
+			username = 'denis.duron@bi-dss.com'
+			password = 'Bidss2017'
+
+	
+			try:
+				server = smtplib.SMTP('smtp.office365.com:587')
+				server.starttls()
+				server.login(username,password)
+				server.sendmail(remitente, destinatario, msg.as_string())
+				server.quit()
+			except Exception as e:
+				print e
+
+			return redirect('listado_solicitudes')
+
+	except Exception as e:
+		print e
+			
+
+
+
+		
 	ctx = {
 		'formulario_ingreso': formulario_ingreso,		
 	}	

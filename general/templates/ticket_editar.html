@@ -10,10 +10,6 @@
 <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
 <link rel="stylesheet" href="{% static 'plugins/select2/select2-bootstrap.min.css' %}">
 
-<link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
-<script src="{% static 'plugins/daterangepicker/moment.min.js' %}"></script>
-<script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
-
 <link href="{% static 'plugins/iCheck/square/blue.css' %}" rel="stylesheet">
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 
@@ -49,7 +45,7 @@
 </style> 
 <div class="box box-primary  with-border">
   <div class="box-body">
-  <p class="text-center sub-style">EDITAR TICKET</p>
+  <h4 class="text-center sub-style">EDITAR TICKET</h4>
     
     <form method="post" accept-charset="utf-8" id="formulario" class="form-horizontal" enctype='multipart/form-data' > <!-- novalidate -->
       {% csrf_token %}
@@ -92,19 +88,13 @@
         </div>        
       </div>
       {% endif %}
-            
-      <div class="row">
-        
-        <div class="col-sm-8">
-        <a href="{% url 'listado_solicitudes' %}" ><button style="width: 150px; height: 50px;" class="btn btn-warning pull-right"><i class="glyphicon glyphicon-remove-circle"></i> CANCELAR</button></a>      
 
-    
-          <button style="width: 150px; height: 50px;" type="submit" class="btn btn-info pull-right" id='btn-actualizar'><i class="glyphicon glyphicon-floppy-disk"></i> GUARDAR</button><br>
-          
-        </div>
-      </div>
+      <br><hr>
+            
+        <button type="submit" class="btn btn-info btn-lg" id='btn-guardar'><i class="glyphicon glyphicon-floppy-disk " ></i> Guardar</button>              
+           
+         <a href="{% url 'listado_solicitudes' %}" ><button class="btn btn-warning btn-lg" ><i class="glyphicon glyphicon-remove-circle"></i> Retornar</button></a>      
       
-        
         
        
     

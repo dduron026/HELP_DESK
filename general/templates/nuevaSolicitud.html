@@ -17,10 +17,6 @@
 <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
 <link rel="stylesheet" href="{% static 'plugins/select2/select2-bootstrap.min.css' %}">
 
-<link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
-<script src="{% static 'plugins/daterangepicker/moment.min.js' %}"></script>
-<script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
-
 <link href="{% static 'plugins/iCheck/square/blue.css' %}" rel="stylesheet">
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 
@@ -55,62 +51,61 @@
 
 
 
-</style> 
+</style>
+
 <div class="box box-primary with-border">
-  <div class="box-body">
-  <p class="text-center sub-style">INGRESO DE TICKETS</p>
-  
-    
-    <form method="post" accept-charset="utf-8" id="formulario" class="form-horizontal" enctype='multipart/form-data' > <!-- novalidate -->
-      {% csrf_token %}
-      <!-- <p class="page-header"></p> -->
-
-  <br>
-      <div class="row">
-        <div class="col-sm-8">
-          {{formulario_ingreso.codProyecto|bootstrap_horizontal:'col-xs-4'}}
-        </div>    
-      </div>
-
-      
-      <div class="row">
-           <div class="col-sm-8">
-          {{formulario_ingreso.titulo|bootstrap_horizontal:'col-xs-4'}}
-        </div>
-  
-      </div>
-      <div class="row">
-        <div class="col-sm-8">
-          {{formulario_ingreso.descripcion_ticket|bootstrap_horizontal:'col-xs-4'}}
-        </div>
-      
-      </div>
-      <div class="row">
-        <div class="col-sm-8">
-          {{formulario_ingreso.comentario|bootstrap_horizontal:'col-xs-4'}}
-        </div>
+        <div class="box-body">
+        <p class="pull-right">Fecha: {% now 'd-m-Y' %}</p>
+        <h4 class="text-center sub-style">INGRESO DE TICKETS</h4><br><hr>
         
-      </div>
-      <div class="row">
-        <div class="col-sm-8">
-          {{formulario_ingreso.prioridad|bootstrap_horizontal:'col-xs-4'}}
-        </div> 
-       
-      </div>   
-      <hr>   
-              <div class="row">
-         <div class="col-sm-8">
-         <button style="width: 150px; height: 50px;" type="reset" class="btn btn-warning pull-right" id='btn-guardar'><i class="glyphicon glyphicon-repeat"></i> LIMPIAR</button>
-        <button style="width: 150px; height: 50px; float: left;" type="submit" class="btn btn-info pull-right " id='btn-guardar'><i class="glyphicon glyphicon-send " ></i> ENVIAR TICKET</button>
-  
-    </form>
+          
+          <form method="post" accept-charset="utf-8" id="formulario" class="form-horizontal" enctype='multipart/form-data' > <!-- novalidate -->
+            {% csrf_token %}
+            <!-- <p class="page-header"></p> -->
 
+        <br>
+            <div class="row">
+              <div class="col-sm-6">
+                {{formulario_ingreso.codProyecto|bootstrap_horizontal:'col-xs-3'}}
+              </div>  
+                 <div class="col-sm-5">
+                {{formulario_ingreso.titulo|bootstrap_horizontal:'col-xs-3'}}
+              </div> 
+
+            </div>
+
+            
+         
+            <div class="row">
+              <div class="col-sm-6">
+                {{formulario_ingreso.descripcion_ticket|bootstrap_horizontal:'col-xs-3'}}
+              </div>
+                <div class="col-sm-5">
+                {{formulario_ingreso.comentario|bootstrap_horizontal:'col-xs-3'}}
+              </div>           
+              
+            
+            </div>
+            <div class="row">
+               <div class="col-sm-6">
+                {{formulario_ingreso.prioridad|bootstrap_horizontal:'col-xs-3'}}
+              </div> 
+             
+            </div>   
+            <br><hr>    
+
+                  <button type="submit" class="btn btn-info btn-lg" id='btn-guardar'><i class="glyphicon glyphicon-send " ></i> Enviar</button>              
            
-         </div>
-       </div>     
-       </div>     
+                  <button type="reset" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-repeat"></i> Limpiar</button>                               
+               
+          </form>
 
-</div>
+                 
+     </div>
+                
+ </div>     
+
+
 
 {% endblock %}  
      <!-- /.content -->

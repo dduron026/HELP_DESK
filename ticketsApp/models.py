@@ -63,7 +63,6 @@ class Ticket(models.Model):
 	asignadoA = models.ForeignKey(User, db_column='AsignadoA', blank=True, null=True)
 
 
-
 	class Meta:
 		db_table = 'Tickets'
 
