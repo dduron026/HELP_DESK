@@ -38,14 +38,15 @@
       </div>
       <!-- info row -->  
 
+
       <div class="row">
         <div class="col-xs-12">
         <table >
             <tbody>
               <tr>
-                <td ><b>CODIGO:</b></td>
-                <td >{{detalle.id}}</td>
-                 <td><b>ASIGNADO A:</b></td>
+                <td  ><b>CODIGO:</b></td>
+                <td style="width: 50%">{{detalle.id}}</td>
+                 <td ><b>ASIGNADO A:</b></td>
                 <td>{{detalle.asignadoA}}</td>
               
               </tr>
@@ -89,7 +90,7 @@
 
       <!-- Table row -->
       <div class="row">
-        <div class="col-xs-11 table-responsive">
+        <div class="col-xs-12 table-responsive">
           <table class="table table-striped">
             <thead>
             <tr>
@@ -106,13 +107,9 @@
 	            
             </tbody>
           </table><br><hr>
-        </div>
-             
+        </div>            
                 
-                <a href="{% url 'listado_solicitudes' %}" ><button style="margin-left: 25px;" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-refresh" ></i> Retornar</button></a>
-       
-
-              
+                <a href="{% url 'listado_solicitudes' %}" ><button style="margin-left: 25px;" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-refresh" ></i> Retornar</button></a>              
       </div>
 
       <!-- /.row -->

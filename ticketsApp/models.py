@@ -26,6 +26,12 @@ class Proyecto(models.Model):
 	def __unicode__(self):
 		return self.nombre_proyecto
 
+class EncargadoCliente(models.Model):
+	cliente = models.ForeignKey('Cliente', db_column='CodCliente')
+	codUsuario = models.ForeignKey(User, db_column='CodUsuario')
+
+	class Meta:
+		db_table = 'EncargadoClientes'
 
 class Estado(models.Model):
 	descripcion_estado = models.CharField(db_column='DescripcionEstado', max_length=200, blank=True, null=True)
@@ -36,14 +42,6 @@ class Estado(models.Model):
 	
 	def __unicode__(self):
 		return self.descripcion_estado
-
-
-class EncargadoCliente(models.Model):
-	cliente = models.ForeignKey('Cliente', db_column='CodCliente')
-	codUsuario = models.ForeignKey(User, db_column='CodUsuario')
-
-	class Meta:
-		db_table = 'EncargadoClientes'
 	
 
 class Ticket(models.Model):
@@ -65,6 +63,9 @@ class Ticket(models.Model):
 
 	class Meta:
 		db_table = 'Tickets'
+
+	def __unicode__(self):
+		return '%s %s' % (self.titulo, self.comentario)
 
 
 
