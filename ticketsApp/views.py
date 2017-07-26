@@ -83,26 +83,17 @@ def ingreso_solicitud(request):
 	ctx = {	
 		'formulario_ingreso': formulario_ingreso,		
 	}
-	return render(request, 'nuevaSolicitud.html', ctx)	
-
+	return render(request, 'nuevaSolicitud.html', ctx)
 
 
 
 @login_required()
 def listado_solicitudes(request):
 	if request.user.is_superuser:
-
 		lista = Ticket.objects.all().order_by('id')
 	else:
 		lista = Ticket.objects.filter(usuarioCreador=request.user)
 	return render(request, 'ticket_listado.html', {'lista':lista})
-
-
-@login_required()
-def listado_superUser(request):
-	lista = Ticket.objects.all().order_by('id')	
-	return render(request, 'ticket_listado2.html', {'lista':lista})
-
 
 
 @login_required()

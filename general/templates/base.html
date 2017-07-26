@@ -39,8 +39,8 @@
   <script src="{% static 'js/app.min.js' %}"></script>
 
   <style type="text/css">
-     .skin-black-light .sidebar-menu>li:hover>a, .skin-black-light .sidebar-menu>li.active>a{
-      background-color: #fcfcf6;
+     .skin-black-light  .sidebar-menu>li:hover>a, .skin-black-light .sidebar-menu>li.active>a{
+      background-color: #269AFF;
     }
     .skin-black-light .sidebar-menu>li>.treeview-menu{
       background-color: #fcfcf6;
@@ -50,11 +50,15 @@
     }
     .skin-black-light .sidebar-menu>li.header{
       background-color: white;
+
     }
     .content-wrapper, .right-side{
       background-color: #f8f8e9;
 
+
     }
+
+  
     .sub-style {
     font-family: Tahoma, Verdana, Segoe, sans-serif;
     color: #269AFF;
@@ -89,12 +93,12 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li>
             <a href="#">
-              <span style="color:blue"><h5><b>Usuario:  {{user.username}}</b></h5></span>
+              <span style="color:blue"><h5><span class="glyphicon glyphicon-user"></span>  {{user.username}}</h5></span>
             </a>
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="{% url 'cerrar_sesion' %}" style="color: blue"><h5>Cerrar Sesión </h5> </a>
+            <a href="{% url 'cerrar_sesion' %}" style="color: red"><h5><span class="glyphicon glyphicon-log-out" > </span> Cerrar Sesión</h5> </a>
           </li>
           
         </ul>
@@ -117,8 +121,7 @@
         
          <li><a href="{% url 'ingreso_solicitud' %}"><i class="fa fa-circle-o"></i><span> Nueva Solicitud </span> </a></li> 
         
-        <li><a href="{% url 'listado_solicitudes' %}"><i class="fa fa-circle-o"></i><span> Listado de Solicitudes </span> </a></li>     
-        
+        <li><a href="{% url 'listado_solicitudes' %}"><i class="fa fa-circle-o"></i><span> Listado de Solicitudes </span> </a></li>             
 
       </ul>
     </section>
@@ -148,7 +151,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong> Derechos Reservados ©2017 BiDSS </strong>
+    <strong> Derechos Reservados ©2017 Bi-DSS </strong>
 
   </footer>
 
