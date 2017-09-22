@@ -56,7 +56,7 @@ class Ticket(models.Model):
 	fechaModificacion = models.DateTimeField(db_column='FechaModificacion', auto_now=True)
 	titulo = models.CharField(db_column='TituloTicket', max_length=200, blank=True, null=True)
 	prioridad = models.CharField(db_column='Prioridad', max_length=20)
-	archivo = models.FileField(db_column='Archivo', null=True, blank=True)
+	archivo = models.FileField(db_column='Archivo', upload_to='uploads/', null=True, blank=True)
 	descripcion_ticket = models.CharField(db_column='DescripcionTicket', max_length=500, blank=True, null=True)
 	asignadoA = models.ForeignKey(User, db_column='AsignadoA', blank=True, null=True)
 

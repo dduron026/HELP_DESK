@@ -37,7 +37,6 @@ def ingreso_solicitud(request):
 	try:
 		if request.POST:
 			ticket = Ticket()
-			clientes = Cliente()
 			proyecto = Proyecto()
 			
 			encargado = EncargadoCliente.objects.get(codUsuario=request.user)
@@ -46,11 +45,17 @@ def ingreso_solicitud(request):
 			ticket.cliente = Cliente.objects.get(pk=encargado.cliente.pk)
 			ticket.codEstado = Estado.objects.get(pk=1)	
 			ticket.titulo = None if request.POST.get('titulo') == '' else request.POST.get('titulo')
+
 			ticket.descripcion_ticket = None if request.POST.get('descripcion_ticket') == '' else request.POST.get('descripcion_ticket')
 			ticket.comentario = None if request.POST.get('comentario') == '' else request.POST.get('comentario')
 			ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')		
 			ticket.usuarioCreador = User.objects.get(id=request.user.pk)
-			ticket.UsuarioModificador = request.user		
+			ticket.UsuarioModificador = request.user
+			try:
+				ticket.archivo = request.FILES['archivo']
+			except Exception as e:
+					pass	
+
 			ticket.save()
 
 			remitente = 'ticket.soporte@bi-dss.com'
@@ -114,9 +119,7 @@ def ticket_editar(request, id_ticket):
 			ticket.titulo = None if request.POST.get('titulo') == '' else request.POST.get('titulo')
 			ticket.descripcion_ticket = None if request.POST.get('descripcion_ticket') == '' else request.POST.get('descripcion_ticket')
 			ticket.comentario = None if request.POST.get('comentario') == '' else request.POST.get('comentario')
-			ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')
-			
-			ticket.usuarioCreador = User.objects.get(id=request.user.pk)
+			ticket.prioridad = None if request.POST.get('prioridad') == '' else request.POST.get('prioridad')			
 			ticket.UsuarioModificador = request.user
 			if request.user.is_superuser:
 				ticket.asignadoA = User.objects.get(pk=request.POST.get('asignadoA'))
