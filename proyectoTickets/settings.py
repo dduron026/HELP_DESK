@@ -79,10 +79,14 @@ WSGI_APPLICATION = 'proyectoTickets.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'TICKETS2',
-        'HOST': 'DESKTOP-SF88S2C',
+        'NAME': 'TICKETS',
+        'HOST': 'CECILIA',
         'USER': '',
         'PASSWORD': '',
+                'OPTIONS': {
+            'unicode_results': True,
+            'extra_params': 'tds_version=8.0'
+        },
 
     }
 }

@@ -31,12 +31,12 @@
         <div class="col-xs-12">
           <h2 class="page-header">
             <i class="fa fa-globe"></i> Detalle del Ticket
-            
+
           </h2>
         </div>
         <!-- /.col -->
       </div>
-      <!-- info row -->  
+      <!-- info row -->
 
 
       <div class="row">
@@ -48,13 +48,13 @@
                 <td style="width: 50%">{{detalle.id}}</td>
                  <td ><b>ASIGNADO A:</b></td>
                 <td>{{detalle.asignadoA}}</td>
-              
+
               </tr>
-             
-              
+
+
               <tr>
                 <td ><b>TITULO:</b></td>
-                <td >{{detalle.titulo}}</td>               
+                <td >{{detalle.titulo}}</td>
                 <td><b>ESTADO:</b></td>
                 <td>{{detalle.codEstado}}</td>
               </tr>
@@ -71,21 +71,21 @@
                 <td><b>FECHA CREACION:</b></td>
                 <td>{{detalle.fechaCreacion}}</td>
               </tr>
-              
+
             </tbody>
 
-      
+
           </table>
 
-          
+
         </div>
         <!-- /.col -->
-      </div>    
-      <br>  
-      <hr> 
-          
-        
-   
+      </div>
+      <br>
+      <hr>
+
+
+
       <!-- /.row -->
 
       <!-- Table row -->
@@ -96,26 +96,26 @@
             <tr>
               <th>DESCRIPCION:</th>
               <th>COMENTARIO:</th>
-              
+
             </tr>
             </thead>
             <tbody>
-            <tr>              
+            <tr>
               <td>{{detalle.descripcion_ticket}}</td>
               <td>{{detalle.comentario}}</td>
             </tr>
-	            
+
             </tbody>
           </table><br><hr>
-        </div>            
-                
-                <a href="{% url 'listado_solicitudes' %}" ><button style="margin-left: 25px;" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-refresh" ></i> Retornar</button></a>              
+        </div>
+
+                <a href="{% url 'listado_solicitudes' %}" ><button style="margin-left: 25px;" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-refresh" ></i> Retornar</button></a>
       </div>
 
       <!-- /.row -->
 
-  
-<script type="text/javascript">
+
+<script>
 	$(document).ready(function() {
 		$('.content').removeClass('content').addClass('invoice')
 	})

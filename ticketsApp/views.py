@@ -82,8 +82,9 @@ def ingreso_solicitud(request):
 			except Exception as e:
 				print e
 	except Exception as e:
-		print e
-				
+		pass
+		
+	print formulario_ingreso				
 
 	ctx = {	
 		'formulario_ingreso': formulario_ingreso,		

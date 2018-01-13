@@ -23,6 +23,14 @@
 		font-size: 12;
 		font-weight: bold;
 	}
+	#fecha{
+		background-color: #FBBD0B;
+		padding: 7px;
+		font-family: sans-serif;
+		color: white;
+		font-style: italic;
+		font-size: 16px;
+	}
 </style>
 
 
@@ -30,66 +38,67 @@
 
 
 	<div class="box-body ">
-	<p class="pull-right">Fecha: {% now 'd-m-Y' %}</p>
-	 
+	<p class="pull-right" id="fecha">Fecha: {% now 'd-m-Y' %}</p>
+
 	 <!-- page-header -->
 			<h4 class="text-center sub-style">LISTA DE TICKETS INGRESADOS AL SISTEMA</h4><hr>
 
 	<table id="tabla" class="table table-bordered table-hover table-responsive">
-		
+
 					<thead>
-					 
+
 							<tr>
 								<th>#</th>
 								<th>TITULO</th>
 								<th>PROYECTO</th>
-								<th>PRIORIDAD</th>                        
+								<th>PRIORIDAD</th>
 								{% if request.user.is_superuser %}
-								<th>ESTADO</th>									
-								<th>ARCHIVO</th>                
-								{% endif %}                                      
-								<th>OPCIONES</th>  
-							</tr>     
+								<th>ESTADO</th>
+								<!-- <th>ARCHIVO</th>                 -->
+								<th>Encargado</th>
+								{% endif %}
+								<th>OPCIONES</th>
+							</tr>
 
 					</thead>
 		<tbody>
 						{% if lista %}
-							{% for data in lista %}            
+							{% for data in lista %}
 						<tr>
 							<td>{{ data.id }}</td>
 							<td>{{ data.titulo }}</td>
 							<td>{{ data.codProyecto }}</td>
-							<td>{{ data.prioridad }}</td>               
+							<td>{{ data.prioridad }}</td>
 							{% if request.user.is_superuser %}
 							<td>{{ data.codEstado }}</td>
-							<td>{{ data.archivo }}</td>
+							<!-- <td>{{ data.archivo }}</td> -->
 							<td>{{ data.asignadoA }}</td>
 						{% endif %}
-						 
-							<td style="text-align: center;"> 
-								
+
+							<td style="text-align: center;">
+
 									<div  class="dropdown">
 											<button  class="glyphicon glyphicon-list" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												
+
 											</button>
 											<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-												
+
 												<li><a class="glyphicon glyphicon-pencil" href="{% url 'ticket_editar' data.id %}"> Editar</a></li>
 												<li><a class="glyphicon glyphicon-asterisk" href="{% url 'ticket_detalle' data.id %}"> Detalle</a></li>
-												
+
 												<!-- <li><a class="glyphicon glyphicon-off" data-toggle="modal" data-target="#myModal"> Cerrar Ticket</a></li> -->
-											 
+
 											</ul>
 									</div>
-									
-								</td>          
 
-						</tr> 
+								</td>
+
+						</tr>
 							{% endfor %}
 							{% else %}
 							<h4>no hay Registros</h4>
-						{% endif %}					
-		
+						{% endif %}
+
 		</tbody>
 	</table>
 
@@ -105,39 +114,39 @@
 					<h4 class="modal-title" id="myModalLabel">encabezado</h4>
 				</div>
 
-				<div class="modal-body">  				
+				<div class="modal-body">
 
-				</div>     
+				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 					<button type="button" class="btn btn-primary">Guardar cambios</button>
 				</div>
 
-				
+
 			</div>
 		</div>
 	</div>
 
 <script>
 	$(document).ready(function() {
-		$("#tabla").DataTable();
-	// $("#tabla").DataTable({
- //      "language": {
- //            "lengthMenu": "_MENU_ registros",
- //            "zeroRecords": "No se encontro ningun registro",
- //            "info": "Pagina _PAGE_ de _PAGES_",
- //            "infoEmpty": "No hay registros",
- //            "infoFiltered": "(filtrado de _MAX_ registros)",
- //            "search":         "Buscar:",
- //            "paginate": {
- //                 "first":      "Primero",
- //                 "last":       "Ultimo",
- //                 "next":       "Siguiente",
- //                 "previous":   "Anterior"
- //             },
- //        }
- //   });
-	
+
+	$("#tabla").DataTable({
+      "language": {
+            "lengthMenu": "_MENU_ registros",
+            "zeroRecords": "No se encontro ningun registro",
+            "info": "Pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay registros",
+            "infoFiltered": "(filtrado de _MAX_ registros)",
+            "search":         "Buscar:",
+            "paginate": {
+                 "first":      "Primero",
+                 "last":       "Ultimo",
+                 "next":       "Siguiente",
+                 "previous":   "Anterior"
+            },
+        }
+   });
+
 	});
 </script>
 <!-- JavaScript Test -->
@@ -147,7 +156,7 @@ function reportFirefoxTestResult(result) {
 	if (!firefoxTestDone) {
 		$('#ff-bug-test-result')
 			.addClass(result ? 'text-success' : 'text-danger')
-			.text(result ? 'PASS' : 'FAIL')  
+			.text(result ? 'PASS' : 'FAIL')
 	}
 	firefoxTestDone = true
 }
