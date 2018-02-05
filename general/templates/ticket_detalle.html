@@ -1,123 +1,122 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
-{% load bootstrap %}
-
-
-{% block contenido %}
+{% extends 'base.html' %} {% load staticfiles %} {% load bootstrap %} {% block contenido %}
 
 <style>
-	.select2-container .select2-selection--single .select2-selection__rendered{
-		margin-top: 0px;
-	}
-	.nav-tabs-custom > .nav-tabs > li.active{
-		border-top-color:#00a65a;
-	}
-	.sub-style {
-		font-family: Tahoma, Verdana, Segoe, sans-serif;
-		color: #269AFF;
-		font-size: 12;
-		font-weight: bold;
-	}
-  td {
-    padding-right: 8px;
-    padding-left: 8px;
-    text-align: left;
-  }
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        margin-top: 0px;
+    }
+    
+    .nav-tabs-custom>.nav-tabs>li.active {
+        border-top-color: #00a65a;
+    }
+    
+    .sub-style {
+        font-family: Tahoma, Verdana, Segoe, sans-serif;
+        color: #269AFF;
+        font-size: 12;
+        font-weight: bold;
+    }
+    
+    td {
+        padding-right: 8px;
+        padding-left: 8px;
+        text-align: left;
+    }
 </style>
 
-      <!-- title row -->
-      <div class="row">
-      <p class="pull-right">Fecha: {% now 'Y-m-d' %}</p>
-        <div class="col-xs-12">
-          <h2 class="page-header">
+<!-- title row -->
+<div class="row">
+    <p class="pull-right">Fecha: {% now 'Y-m-d' %}</p>
+    <div class="col-xs-12">
+        <h2 class="page-header">
             <i class="fa fa-globe"></i> Detalle del Ticket
 
-          </h2>
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- info row -->
+        </h2>
+    </div>
+    <!-- /.col -->
+</div>
+<!-- info row -->
 
 
-      <div class="row">
-        <div class="col-xs-12">
-        <table >
+<div class="row">
+    <div class="col-xs-12">
+        <table>
             <tbody>
-              <tr>
-                <td  ><b>CODIGO:</b></td>
-                <td style="width: 50%">{{detalle.id}}</td>
-                 <td ><b>ASIGNADO A:</b></td>
-                <td>{{detalle.asignadoA}}</td>
-
-              </tr>
-
-
-              <tr>
-                <td ><b>TITULO:</b></td>
-                <td >{{detalle.titulo}}</td>
-                <td><b>ESTADO:</b></td>
-                <td>{{detalle.codEstado}}</td>
-              </tr>
                 <tr>
-                <td ><b>PROYECTO:</b></td>
-                <td>{{detalle.codProyecto}}</td>
-                <td><b>PRIORIDAD:</b></td>
-                <td>{{detalle.prioridad}}</td>
-              </tr>
+                    <td><b>CODIGO:</b></td>
+                    <td style="width: 50%">{{detalle.id}}</td>
+                    <td><b>ASIGNADO A:</b></td>
+                    <td>{{detalle.asignadoA}}</td>
+
+                </tr>
+
+
+                <tr>
+                    <td><b>TITULO:</b></td>
+                    <td>{{detalle.titulo}}</td>
+                    <td><b>ESTADO:</b></td>
+                    <td>{{detalle.codEstado}}</td>
                 </tr>
                 <tr>
-                <td ><b>USUARIO CREADOR:</b></td>
-                <td>{{detalle.usuarioCreador}}</td>
-                <td><b>FECHA CREACION:</b></td>
-                <td>{{detalle.fechaCreacion}}</td>
-              </tr>
+                    <td><b>PROYECTO:</b></td>
+                    <td>{{detalle.codProyecto}}</td>
+                    <td><b>PRIORIDAD:</b></td>
+                    <td>{{detalle.prioridad}}</td>
+                </tr>
+                </tr>
+                <tr>
+                    <td><b>USUARIO CREADOR:</b></td>
+                    <td>{{detalle.usuarioCreador}}</td>
+                    <td><b>FECHA CREACION:</b></td>
+                    <td>{{detalle.fechaCreacion}}</td>
+                </tr>
 
             </tbody>
 
 
-          </table>
+        </table>
 
 
-        </div>
-        <!-- /.col -->
-      </div>
-      <br>
-      <hr>
+    </div>
+    <!-- /.col -->
+</div>
+<br>
+<hr>
 
 
 
-      <!-- /.row -->
+<!-- /.row -->
 
-      <!-- Table row -->
-      <div class="row">
-        <div class="col-xs-12 table-responsive">
-          <table class="table table-striped">
+<!-- Table row -->
+<div class="row">
+    <div class="col-xs-12 table-responsive">
+        <table class="table table-striped">
             <thead>
-            <tr>
-              <th>DESCRIPCION:</th>
-              <th>COMENTARIO:</th>
+                <tr>
+                    <th>DESCRIPCION:</th>
+                    <th>COMENTARIO:</th>
 
-            </tr>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>{{detalle.descripcion_ticket}}</td>
-              <td>{{detalle.comentario}}</td>
-            </tr>
+                <tr>
+                    <td>{{detalle.descripcion_ticket}}</td>
+                    <td>{{detalle.comentario}}</td>
+                </tr>
 
             </tbody>
-          </table><br><hr>
-        </div>
+        </table><br>
+        <hr>
+    </div>
 
-                <a href="{% url 'listado_solicitudes' %}" ><button style="margin-left: 25px;" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-refresh" ></i> Retornar</button></a>
-      </div>
+    <a href="{% url 'listado_tickets' %}"><button style="margin-left: 25px;" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-refresh" ></i> Retornar</button></a>
+</div>
 
-      <!-- /.row -->
+<!-- /.row -->
 
 
 <script>
-	$(document).ready(function() {
-		$('.content').removeClass('content').addClass('invoice')
-	})
+    $(document).ready(function() {
+        $('.content').removeClass('content').addClass('invoice')
+    })
 </script>
 {% endblock %}

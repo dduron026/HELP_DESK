@@ -23,7 +23,7 @@ User.__unicode__= user_unicode_patch
 
 
 @login_required()
-def ingreso_solicitud(request):
+def ingresar_ticket(request):
 	
 	formulario_ingreso = TicketForm()
 	try:
@@ -58,8 +58,8 @@ def ingreso_solicitud(request):
 
 			ticket.save()
 
-			remitente = 'ticket.soporte@bi-dss.com'
-			destinatario = "denisduron83@gmail.com"
+			remitente = 'denisduron83@gmail.com'
+			destinatario = "denis_duron@hotmail.com"
 					
 			msg = MIMEMultipart()
 
@@ -71,8 +71,8 @@ def ingreso_solicitud(request):
 			body = 'Saludos <b>Denis</b>,<br> el usuario <b>{0}{1}{2}{3}</b> ha reportado el ticket # <b>[{4}]</b> con nivel de urgencia <b>{5}</b>.<br><b>[Prueba].<b>'.format(request.user.first_name, ' ', request.user.last_name, ' ',ticket.pk, ticket.prioridad ) 
 
 			msg.attach(MIMEText(body.encode('utf-8'), 'html', 'utf-8'))	
-			username = 'ticket.soporte@bi-dss.com'
-			password = 'Ticket2017'		
+			username = 'denisduron83@gmail.com'
+			password = 'ceciliadu2008'		
 			try:
 				server = smtplib.SMTP('smtp.office365.com:587')
 				server.starttls()
@@ -94,7 +94,7 @@ def ingreso_solicitud(request):
 
 
 @login_required()
-def listado_solicitudes(request):
+def listado_tickets(request):
 	if request.user.is_superuser:
 		lista = Ticket.objects.all().order_by('id')
 	else:

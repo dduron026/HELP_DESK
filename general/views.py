@@ -13,7 +13,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 
 from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth.hashers  import make_password
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 
 
@@ -24,7 +24,7 @@ def cerrar_sesion(request):
 
 
 def login(request):
-
+	
 	ctx = {}
 	logout(request)
 	if request.POST:
@@ -40,17 +40,9 @@ def login(request):
 				 'error': True,
 				 'username': username,
 			}
-	return render(request, 'login.html', ctx)	
+	return render(request, 'login.html', ctx)
 
 
 @login_required()
 def menu(request):
-	return render(request, 'menu_principal.html', {})	
-
-
-
-
-
-	
-
-
+	return render(request, 'menu_principal.html', {})
