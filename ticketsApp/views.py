@@ -80,7 +80,7 @@ def ingresar_ticket(request):
 				server.sendmail(remitente, destinatario, msg.as_string())
 				server.quit()
 			except Exception as e:
-				print 'errrooooooooooooooorrrrrrr', e
+				print e
 	except Exception as e:
 		pass
 
@@ -126,7 +126,7 @@ def ticket_editar(request, id_ticket):
 
 			ticket.save()
 
-			remitente = 'ticket.soporte@bi-dss.com'
+			remitente = 'denisduron83@gmail.com'
 			destinatario = ticket.asignadoA.email;
 			print destinatario
 					
@@ -140,11 +140,11 @@ def ticket_editar(request, id_ticket):
 
 			msg.attach(MIMEText(body.encode('utf-8'), 'html', 'utf-8'))
 		
-			username = 'ticket.soporte@bi-dss.com'
-			password = 'Ticket2017'
+			username = 'denisduron83@gmail.com'
+			password = 'ceciliadu4401'
 
 			try:
-				server = smtplib.SMTP('smtp.office365.com:587')
+				server = smtplib.SMTP('smtp.gmail.com:587')
 				server.starttls()
 				server.login(username,password)
 				server.sendmail(remitente, destinatario, msg.as_string())
