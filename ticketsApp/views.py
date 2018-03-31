@@ -59,7 +59,7 @@ def ingresar_ticket(request):
 			ticket.save()
 
 			remitente = 'denisduron83@gmail.com'
-			destinatario = "denis_duron@hotmail.com"
+			destinatario = "aribanegasc@gmail.com"
 					
 			msg = MIMEMultipart()
 
@@ -72,19 +72,17 @@ def ingresar_ticket(request):
 
 			msg.attach(MIMEText(body.encode('utf-8'), 'html', 'utf-8'))	
 			username = 'denisduron83@gmail.com'
-			password = 'ceciliadu2008'		
+			password = 'ceciliadu4401'		
 			try:
-				server = smtplib.SMTP('smtp.office365.com:587')
+				server = smtplib.SMTP('smtp.gmail.com',587)
 				server.starttls()
 				server.login(username,password)
 				server.sendmail(remitente, destinatario, msg.as_string())
 				server.quit()
 			except Exception as e:
-				print e
+				print 'errrooooooooooooooorrrrrrr', e
 	except Exception as e:
 		pass
-		
-	print formulario_ingreso				
 
 	ctx = {	
 		'formulario_ingreso': formulario_ingreso,		
