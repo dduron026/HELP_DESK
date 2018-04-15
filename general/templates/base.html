@@ -7,27 +7,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %} Menú {% endblock %}</title>
-    <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.6 -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <!-- Font Awesome -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">  
     <link rel="stylesheet" href="{% static 'css/AdminLTE.css' %}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{% static 'css/skins/_all-skins.min.css' %}">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 
 
     <!-- jQuery 2.2.3 -->
@@ -99,14 +83,14 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li>
                             <a href="#">
-                                <span style="color:blue"><h5><span class="glyphicon glyphicon-user"></span> {{user.username}}</h5>
+                                <span style="color:blue"><h4><span class="glyphicon glyphicon-user"></span> {{user.first_name}} {{user.last_name}}</h4>
                                 </span>
                             </a>
                         </li>
                         <!-- Control Sidebar Toggle Button -->
                         <li>
-                            <a href="{% url 'cerrar_sesion' %}" style="color: red">
-                                <h5><span class="glyphicon glyphicon-log-out"> </span> Cerrar Sesión</h5>
+                            <a href="{% url 'cerrar_sesion' %}" style="color: orange">
+                                <h4><span class="glyphicon glyphicon-log-out"> </span> Cerrar Sesión</h4>
                             </a>
                         </li>
 
@@ -121,7 +105,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="info">
-                        <img src="{% static 'img/logo.png' %}" alt="User Image" width='150px'>
+                        <img src="{% static 'img/logo.png' %}" alt="UserImage" height="150">
                     </div>
                 </div>
                 <!-- sidebar menu: : style can be found in sidebar.less -->

@@ -12,26 +12,22 @@
 <script src="{% static 'plugins/select2/select2.min.js' %}"></script>
 
 <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
-<link rel="stylesheet" href="{% static 'plugins/select2/select2-bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/AdminLTE.css' %}">
 
 <link href="{% static 'plugins/iCheck/square/blue.css' %}" rel="stylesheet">
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 
 
 <style>
-  .select2-container .select2-selection--single .select2-selection__rendered{
+/*  .select2-container .select2-selection--single .select2-selection__rendered{
     margin-top: 0px;
   }
   .nav-tabs-custom > .nav-tabs > li.active{
     border-top-color:#00a65a;
-  }
-  .sub-style {
-    font-family: Tahoma, Verdana, Segoe, sans-serif;
-    color: #269AFF;
-    font-size: 12;
-    font-weight: bold;
-  }
-  .loader {
+  }*/
+
+/*  .loader {
       display: none;
       animation: spin 2s linear infinite;
       position:   fixed;
@@ -44,17 +40,25 @@
                 url('http://i.stack.imgur.com/FhHRx.gif') 
                 50% 50% 
                 no-repeat;
-  }
-
+  }*/
+  
 
 
 </style>
 
-<div class="box box-primary with-border">
+
+
+<div class="box box-solid box-primary">
+
+
+        <div class="box-header text-center">
+          <h1 class="box-title">INGRESAR SOLICITUD</h1>
+        </div>
+
         <div class="box-body">
-        <p class="pull-right">Fecha: {% now 'd-m-Y' %}</p>
-        <h4 class="text-center sub-style">INGRESO DE TICKETS</h4><br><hr>
-        
+        <!-- <p class="pull-right">Fecha: {% now 'd-m-Y' %}</p> -->
+        <!-- <h4 class="text-center sub-style">INGRESO DE TICKETS</h4><br><hr> -->
+       
           
           <form method="post" accept-charset="utf-8" id="formulario" class="form-horizontal" enctype='multipart/form-data' > <!-- novalidate -->
             {% csrf_token %}

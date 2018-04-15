@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from ticketsApp.forms import *
 from .models import * 
+# un comentario
  
 import smtplib
 from email.MIMEMultipart import MIMEMultipart
@@ -68,11 +69,11 @@ def ingresar_ticket(request):
 			# msg['To'] = ", ".join(destinatario) varios a la vez
 			msg['Subject'] = '{0}{1}{2}{3}{4}{5}{6}'.format('TICKET #', ' ', ticket.pk,' ', 'de', ' ', ticket.codProyecto)
 
-			body = 'Saludos <b>Denis</b>,<br> el usuario <b>{0}{1}{2}{3}</b> ha reportado el ticket # <b>[{4}]</b> con nivel de urgencia <b>{5}</b>.<br><b>[Prueba].<b>'.format(request.user.first_name, ' ', request.user.last_name, ' ',ticket.pk, ticket.prioridad ) 
+			body = 'Saludos <b>[Ing. Gerente de proyectos Bi Technology]</b>,<br> el usuario <b>{0}{1}{2}{3}</b> ha reportado el ticket # <b>[{4}]</b> con nivel de urgencia <b>{5}</b>.<br><b>[Prueba].<b>'.format(request.user.first_name, ' ', request.user.last_name, ' ',ticket.pk, ticket.prioridad ) 
 
 			msg.attach(MIMEText(body.encode('utf-8'), 'html', 'utf-8'))	
 			username = 'denisduron83@gmail.com'
-			password = 'ceciliadu4401'		
+			password = 'Cecili@du2008'		
 			try:
 				server = smtplib.SMTP('smtp.gmail.com',587)
 				server.starttls()
@@ -141,7 +142,7 @@ def ticket_editar(request, id_ticket):
 			msg.attach(MIMEText(body.encode('utf-8'), 'html', 'utf-8'))
 		
 			username = 'denisduron83@gmail.com'
-			password = 'ceciliadu4401'
+			password = 'Cecili@du2008'
 
 			try:
 				server = smtplib.SMTP('smtp.gmail.com:587')
@@ -152,7 +153,7 @@ def ticket_editar(request, id_ticket):
 			except Exception as e:
 				print e
 
-			return redirect('listado_solicitudes')
+			return redirect('listado_tickets')
 
 	except Exception as e:
 		print e
