@@ -1,0 +1,135 @@
+{% load staticfiles %}
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Inicio de Sesion </title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'css/AdminLTE.min.css' %}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{% static 'plugins/iCheck/square/blue.css' %}">
+
+  <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/select2/select2-bootstrap.min.css' %}">
+
+  <style type="text/css">
+    .progress.active .progress-bar {
+      -webkit-transition: none !important;
+      transition: none !important;
+    }
+
+  .login-page, .register-page{
+      background-color: white;
+    }
+  .select2-container .select2-selection--single .select2-selection__rendered{
+    margin-top: 0px;
+  }
+  </style>
+  <style>
+
+  .modal-header, h4, .close {
+      background-color: blue;
+      color: white;
+      text-align: center;
+      font-size: 25px;
+      
+  }
+  .modal-footer {
+      background-color: #f9f9f9;
+  }
+  .inicio{
+    text-align: center;
+    padding-top: 100px;
+
+  }
+  #myBtn{
+    width: 30%;
+    color: white;
+    background-color: #0892d0;
+  }
+  </style>
+
+<div class="container">
+  <div class="inicio">
+      <h2 style="color: blue;"><b><i>Escritorio de Ayuda BI-DSS Technology</i> </b> </h2>
+        <!-- Trigger the modal with a button -->
+        <img class="text-center" src="{% static 'img/logo.png' %}" width="250px"><br><hr>
+
+       <button type="button" class="btn " id="myBtn">INICIAR SESION</button>    
+
+  </div>
+
+
+  <!-- Modal -->
+  <div  class="modal fade" id="myModal" role="dialog">
+    <div style="width: 36%;" class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header" style="padding:35px 50px; background-color: blue;">
+          <button type="button" style="color: black;" class="close" data-dismiss="modal">&times;</button>
+
+          <h4><span class="glyphicon glyphicon-lock"></span> Bi-DSS Login</h4>
+        </div>
+        <div class="modal-body" style="padding:40px 50px;">
+
+          <form method="post"> {% csrf_token %}
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Nombre de Usuario</label>
+              <input style="padding: 23px;"  type="text" class="form-control" placeholder="Usuario" name='username' value="{{username}}" required="required">
+            </div>
+            <div class="form-group">
+              <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Contraseña</label>
+              <input style="padding: 23px;" type="password" class="form-control" placeholder="Contraseña" name='password' required="required">
+            </div>     
+
+            <div class="checkbox">
+              <label><input type="checkbox" value="" checked>Recordarme</label>
+            </div>
+              <button style="background-color: #0892d0; font-size: 18px; height: 45px;" type="submit" class="btn btn-success btn-block"> <span class="glyphicon glyphicon-off"></span> Iniciar Sesión</button>
+            
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button style="color: #ffffff;" type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancelar</button>
+        
+        </div>
+      </div>
+       {% if error %}
+        <div class="text-center">
+          <span class="">ERROR!! El usuario o contraseña no es correcta.</span>
+
+          <script type="text/javascript">
+          direccionActual=window.location.href;
+          console.log(direccionActual);
+      
+           setTimeout(function() {
+           window.location.href = direccionActual;
+       }, 2000);
+          </script>
+          <br>
+          <br>
+        </div>
+      {% endif %}
+      
+    </div>
+  </div> 
+</div>
+ 
+<script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
+});
+</script>
