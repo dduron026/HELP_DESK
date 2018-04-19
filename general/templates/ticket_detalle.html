@@ -1,7 +1,8 @@
 {% extends 'base.html' %} {% load staticfiles %} {% load bootstrap %} {% block contenido %}
 
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 <style>
-    .select2-container .select2-selection--single .select2-selection__rendered {
+    /* .select2-container .select2-selection--single .select2-selection__rendered {
         margin-top: 0px;
     }
     
@@ -14,7 +15,7 @@
         color: #269AFF;
         font-size: 12;
         font-weight: bold;
-    }
+    } */
     
     td {
         padding-right: 8px;
@@ -23,8 +24,94 @@
     }
 </style>
 
+<div class="box box-solid box-success">
+    <div class="box-header text-center">
+        <span class="glyphicon glyphicon-info-sign pull-left"></span>
+        <h3 class="box-title">Detalle del Ticket</h3>
+
+    </div>
+    <div class="box-body">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><b>CODIGO:</b></td>
+                            <td style="width: 50%">{{detalle.id}}</td>
+                            <td><b>ASIGNADO A:</b></td>
+                            <td>{{detalle.asignadoA}}</td>
+
+                        </tr>
+
+
+                        <tr>
+                            <td><b>TITULO:</b></td>
+                            <td>{{detalle.titulo}}</td>
+                            <td><b>ESTADO:</b></td>
+                            <td>{{detalle.codEstado}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>PROYECTO:</b></td>
+                            <td>{{detalle.codProyecto}}</td>
+                            <td><b>PRIORIDAD:</b></td>
+                            <td>{{detalle.prioridad}}</td>
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td><b>USUARIO CREADOR:</b></td>
+                            <td>{{detalle.usuarioCreador}}</td>
+                            <td><b>FECHA CREACION:</b></td>
+                            <td>{{detalle.fechaCreacion}}</td>
+                        </tr>
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <br>
+        <hr>
+
+
+
+        <!-- /.row -->
+
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>DESCRIPCION:</th>
+                            <th>COMENTARIO:</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{detalle.descripcion_ticket}}</td>
+                            <td>{{detalle.comentario}}</td>
+                        </tr>
+
+                    </tbody>
+                </table><br>
+                <hr>
+            </div>
+
+            <a href="{% url 'listado_tickets' %}"><button style="margin-left: 25px;" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-refresh" ></i> Retornar</button></a>
+        </div>
+
+    </div>
+
+</div>
+
 <!-- title row -->
-<div class="row">
+<!-- <div class="row">
     <p class="pull-right">Fecha: {% now 'Y-m-d' %}</p>
     <div class="col-xs-12">
         <h2 class="page-header">
@@ -33,90 +120,19 @@
         </h2>
     </div>
     <!-- /.col -->
-</div>
+<!-- </div>  -->
 <!-- info row -->
 
 
-<div class="row">
-    <div class="col-xs-12">
-        <table>
-            <tbody>
-                <tr>
-                    <td><b>CODIGO:</b></td>
-                    <td style="width: 50%">{{detalle.id}}</td>
-                    <td><b>ASIGNADO A:</b></td>
-                    <td>{{detalle.asignadoA}}</td>
-
-                </tr>
-
-
-                <tr>
-                    <td><b>TITULO:</b></td>
-                    <td>{{detalle.titulo}}</td>
-                    <td><b>ESTADO:</b></td>
-                    <td>{{detalle.codEstado}}</td>
-                </tr>
-                <tr>
-                    <td><b>PROYECTO:</b></td>
-                    <td>{{detalle.codProyecto}}</td>
-                    <td><b>PRIORIDAD:</b></td>
-                    <td>{{detalle.prioridad}}</td>
-                </tr>
-                </tr>
-                <tr>
-                    <td><b>USUARIO CREADOR:</b></td>
-                    <td>{{detalle.usuarioCreador}}</td>
-                    <td><b>FECHA CREACION:</b></td>
-                    <td>{{detalle.fechaCreacion}}</td>
-                </tr>
-
-            </tbody>
-
-
-        </table>
-
-
-    </div>
-    <!-- /.col -->
-</div>
-<br>
-<hr>
-
 
 
 <!-- /.row -->
 
-<!-- Table row -->
-<div class="row">
-    <div class="col-xs-12 table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>DESCRIPCION:</th>
-                    <th>COMENTARIO:</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{detalle.descripcion_ticket}}</td>
-                    <td>{{detalle.comentario}}</td>
-                </tr>
-
-            </tbody>
-        </table><br>
-        <hr>
-    </div>
-
-    <a href="{% url 'listado_tickets' %}"><button style="margin-left: 25px;" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-refresh" ></i> Retornar</button></a>
-</div>
-
-<!-- /.row -->
 
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('.content').removeClass('content').addClass('invoice')
     })
-</script>
+</script> -->
 {% endblock %}

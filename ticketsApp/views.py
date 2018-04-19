@@ -25,6 +25,8 @@ User.__unicode__= user_unicode_patch
 
 @login_required()
 def ingresar_ticket(request):
+
+	mensaje = ''
 	
 	formulario_ingreso = TicketForm()
 	try:
@@ -58,6 +60,7 @@ def ingresar_ticket(request):
 					pass	
 
 			ticket.save()
+			mensaje = 'exito'
 
 			remitente = 'denisduron83@gmail.com'
 			destinatario = "aribanegasc@gmail.com"
@@ -67,7 +70,7 @@ def ingresar_ticket(request):
 			msg['From'] = remitente
 			msg['To'] = destinatario
 			# msg['To'] = ", ".join(destinatario) varios a la vez
-			msg['Subject'] = '{0}{1}{2}{3}{4}{5}{6}'.format('TICKET #', ' ', ticket.pk,' ', 'de', ' ', ticket.codProyecto)
+			msg['Subject'] = '{0}{1}{2}{3}{4}'.format('TICKET #', ' ', ticket.pk,' ', ticket.titulo)
 
 			body = 'Saludos <b>[Ing. Gerente de proyectos Bi Technology]</b>,<br> el usuario <b>{0}{1}{2}{3}</b> ha reportado el ticket # <b>[{4}]</b> con nivel de urgencia <b>{5}</b>.<br><b>[Prueba].<b>'.format(request.user.first_name, ' ', request.user.last_name, ' ',ticket.pk, ticket.prioridad ) 
 
@@ -83,10 +86,11 @@ def ingresar_ticket(request):
 			except Exception as e:
 				print e
 	except Exception as e:
-		pass
+		mensaje = 'error'
 
 	ctx = {	
-		'formulario_ingreso': formulario_ingreso,		
+		'formulario_ingreso': formulario_ingreso,
+		'mensaje': mensaje,		
 	}
 	return render(request, 'nuevaSolicitud.html', ctx)
 

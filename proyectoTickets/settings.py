@@ -11,7 +11,7 @@ SECRET_KEY = '1nqi0x5gw1ypdb14x2*m=52rg@gved2+1hiqu@!9cq(mslw-av'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 # Application definition
 INSTALLED_APPS = [
@@ -55,6 +55,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'proyectoTickets.wsgi.application'
+
 
 # Base de datos
 DATABASES = {

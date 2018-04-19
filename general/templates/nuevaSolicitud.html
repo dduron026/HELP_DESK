@@ -1,11 +1,4 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
-{% load bootstrap %}
-
-
-{% block title %} Nueva Solicitud {% endblock %}
-        
-{% block contenido %}
+{% extends 'base.html' %} {% load staticfiles %} {% load bootstrap %} {% block title %} Nueva Solicitud {% endblock %} {% block contenido %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 
@@ -18,97 +11,99 @@
 <link href="{% static 'plugins/iCheck/square/blue.css' %}" rel="stylesheet">
 <script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
 
-
-<style>
-/*  .select2-container .select2-selection--single .select2-selection__rendered{
-    margin-top: 0px;
-  }
-  .nav-tabs-custom > .nav-tabs > li.active{
-    border-top-color:#00a65a;
-  }*/
-
-/*  .loader {
-      display: none;
-      animation: spin 2s linear infinite;
-      position:   fixed;
-      z-index:    1000;
-      top:        0;
-      left:       0;
-      height:     100%;
-      width:      100%;
-      background: rgba( 255, 255, 255, .8 ) 
-                url('http://i.stack.imgur.com/FhHRx.gif') 
-                50% 50% 
-                no-repeat;
-  }*/
-  
-
-
-</style>
-
-
-
 <div class="box box-solid box-primary">
 
 
-        <div class="box-header text-center">
-          <h1 class="box-title">INGRESAR SOLICITUD</h1>
-        </div>
+    <div class="box-header text-center">
+        <span class="glyphicon glyphicon-plus-sign pull-left"></span>
+        <h1 class="box-title">INGRESAR SOLICITUD</h1>
+    </div>
 
-        <div class="box-body">
+    <div class="box-body">
         <!-- <p class="pull-right">Fecha: {% now 'd-m-Y' %}</p> -->
         <!-- <h4 class="text-center sub-style">INGRESO DE TICKETS</h4><br><hr> -->
-       
-          
-          <form method="post" accept-charset="utf-8" id="formulario" class="form-horizontal" enctype='multipart/form-data' > <!-- novalidate -->
+
+
+        <form method="post" accept-charset="utf-8" id="formulario" class="form-horizontal" enctype='multipart/form-data'>
+            <!-- novalidate -->
             {% csrf_token %}
             <!-- <p class="page-header"></p> -->
 
-           <br>
+            <br>
             <div class="row">
-              <div class="col-sm-5">
-                {{formulario_ingreso.codProyecto|bootstrap_horizontal:'col-xs-3'}}
-              </div>  
-                 <div class="col-sm-5">
-                {{formulario_ingreso.titulo|bootstrap_horizontal:'col-xs-3'}}
-              </div>
+                <div class="col-sm-5">
+                    {{formulario_ingreso.codProyecto|bootstrap_horizontal:'col-xs-3'}}
+                </div>
+                <div class="col-sm-5">
+                    {{formulario_ingreso.titulo|bootstrap_horizontal:'col-xs-3'}}
+                </div>
             </div>
 
-            
-         
+
+
             <div class="row">
-              <div class="col-sm-5">
-                {{formulario_ingreso.descripcion_ticket|bootstrap_horizontal:'col-xs-3'}}
-              </div>
                 <div class="col-sm-5">
-                {{formulario_ingreso.comentario|bootstrap_horizontal:'col-xs-3'}}
-              </div>           
-              
-            
+                    {{formulario_ingreso.descripcion_ticket|bootstrap_horizontal:'col-xs-3'}}
+                </div>
+                <div class="col-sm-5">
+                    {{formulario_ingreso.comentario|bootstrap_horizontal:'col-xs-3'}}
+                </div>
+
+
             </div>
             <div class="row">
-               <div class="col-sm-5">
-                {{formulario_ingreso.prioridad|bootstrap_horizontal:'col-xs-3'}}
-              </div> 
                 <div class="col-sm-5">
-                {{formulario_ingreso.archivo|bootstrap_horizontal:'col-xs-3'}}
-              </div>
-             
-            </div>   
-            <br><hr>    
+                    {{formulario_ingreso.prioridad|bootstrap_horizontal:'col-xs-3'}}
+                </div>
+                <div class="col-sm-5">
+                    {{formulario_ingreso.archivo|bootstrap_horizontal:'col-xs-3'}}
+                </div>
 
-                  <button type="submit" class="btn btn-info btn-lg" id='btn-guardar'><i class="glyphicon glyphicon-send " ></i> Enviar</button>              
-           
-                  <button type="reset" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-repeat"></i> Limpiar</button>                               
-               
-          </form>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-10">
+                    {% if mensaje %} {% if mensaje == 'exito' %}
+                    <div class="text-center">
+                        <div id="exito" class="alert alert-success" role="alert">
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span> La solicitud ha sido enviada exitosamente
+                        </div>
+                    </div>{% endif %} {% endif %}
 
-                 
-     </div>
-                
- </div>     
+                </div>
+
+            </div>
+
+            <hr>
+
+            <button type="submit" class="btn btn-info btn-lg" id='btn-guardar'><i class="glyphicon glyphicon-send " ></i> Enviar</button>
+
+            <button type="reset" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-repeat"></i> Cancelar</button>
+
+        </form>
 
 
 
-{% endblock %}  
-     <!-- /.content -->
+
+    </div>
+
+</div>
+
+<!-- jQuery 2.2.3 -->
+<script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('#exito').fadeIn('slow').delay(7000).fadeOut('slow');
+
+
+    });
+</script>
+
+
+
+{% endblock %}

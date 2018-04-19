@@ -1,71 +1,137 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Inicio de Sesion </title>
- 
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/AdminLTE.min.css' %}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Inicio de Sesion </title>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/AdminLTE.min.css' %}">
 
 
 </head>
+<style>
+    body {
+        background-color: lightblue !important;
+    }
+    
+    #usuario,
+    #pass {
+        padding: 20px;
+    }
+    
+    #iniciar {
+        padding: 13px;
+        font-size: 18px;
+    }
+    
+    #login {
+        border: solid 1px yellow;
+        width: 30%;
+    }
+</style>
+
 <body class="hold-transition login-page">
-<div class="login-box">
-  <div class="text-center">   
-    <h2>Sistema Help Desk</h2>
-  </div>
- 
-  <div class="login-box-body">
-    <div class="text-center">
-       <img src="{% static 'img/logo.png' %}" height="200">
-       <br>
-        <br>
-    </div>   
-
-    <form action="" method="post">
-      {% csrf_token %}
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Usuario" name='username' value="{{username}}" required="required">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Contraseña" name='password' required="required">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-
-      {% if error %}
+    <div id="login" class="login-box">
         <div class="text-center">
-          <span class="label label-danger ">ERROR!! El usuario o contraseña no es correcta.</span>
-          <br>
-          <br>
+
         </div>
-      {% endif %}
 
-      <div class="row">
-        <!-- /.col -->
-        <div class="col-xs-12">
-          <button type="submit" class="btn btn-success btn-block btn-flat"><b>Iniciar Sesión</b></button>
+        <div class="login-box-body">
+
+            <div class="text-center">
+                <h2>Sistema Help Desk</h2>
+                <img src="{% static 'img/logo.png' %}" height="100">
+                <br>
+                <br>
+            </div>
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group has-feedback">
+                    <input id="usuario" type="text" class="form-control" placeholder="Usuario" name='username'>
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input id="pass" type="password" class="form-control" autocomplete="off" placeholder="Contraseña" name='password'>
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+
+                {% if error %}
+                <div class="text-center">
+                    <!-- <span class="label label-danger ">ERROR!! El usuario o contraseña no es correcta.</span> -->
+                    <div id="error" class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span> Los datos proporcionados no son válidos
+                    </div>
+
+
+
+                </div>
+                {% endif %}
+                <div id="validar" style="display: none;" class="alert alert-warning" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span> Favor ingresar usuario
+                </div>
+
+                <div id="validar2" style="display: none;" class="alert alert-warning" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span> Favor ingresar contraseña
+                </div>
+
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-xs-12">
+                        <button id="iniciar" data-toggle="tooltip" data-placement="bottom" title="Presione aquí para iniciar sesión" type="submit" class="btn btn-primary btn-block btn-flat">
+  Iniciar Sesión</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
         </div>
-        <!-- /.col -->
-      </div>
-    </form>
-
-  </div>
-  <!-- /.login-box-body -->
+        <!-- /.login-box-body -->
 
 
-</div>
+    </div>
 
-<!-- jQuery 2.2.3 -->
-<script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<!-- iCheck -->
-<!-- <script src="{% static 'plugins/iCheck/icheck.min.js' %}"></script> -->
+    <!-- jQuery 2.2.3 -->
+    <script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#error').fadeIn('slow').delay(4000).fadeOut('slow');
+
+            $(".login-box").submit(function() {
+                if ($("#usuario").val().length < 1) {
+
+                    $('#validar').show('slow').delay(3000).hide('slow');
+                    $('#usuario').focus();
+                    return false;
+                } else {
+                    if ($("#pass").val().length < 1) {
+
+                        $('#validar2').show('slow').delay(3000).hide('slow');
+                        $('#pass').focus();
+                        return false;
+                    } else {
+                        return true;
+                    }
+
+                }
+
+
+            })
+
+        });
+    </script>
 
 </body>
+
 </html>
