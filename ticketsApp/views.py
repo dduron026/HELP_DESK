@@ -33,7 +33,7 @@ def ingresar_ticket(request):
 		clientes = Cliente()
 		
 		encargado_cliente = EncargadoCliente.objects.get(codUsuario__pk=request.user.pk)
-		formulario_ingreso.fields["codProyecto"] = forms.ModelChoiceField(queryset=Proyecto.objects.filter(cliente__pk=encargado_cliente.cliente.pk))
+		formulario_ingreso.fields["Proyecto"] = forms.ModelChoiceField(queryset=Proyecto.objects.filter(cliente__pk=encargado_cliente.cliente.pk))
 
 	except Exception as e:
 		pass
@@ -43,7 +43,7 @@ def ingresar_ticket(request):
 			proyecto = Proyecto()
 			
 			encargado = EncargadoCliente.objects.get(codUsuario=request.user)
-			ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('codProyecto'))
+			ticket.Proyecto = Proyecto.objects.get(pk=request.POST.get('Proyecto'))
 			ticket.codEncargadoCliente = encargado
 			ticket.cliente = Cliente.objects.get(pk=encargado.cliente.pk)
 			ticket.codEstado = Estado.objects.get(pk=1)	
@@ -63,7 +63,7 @@ def ingresar_ticket(request):
 			mensaje = 'exito'
 
 			remitente = 'denisduron83@gmail.com'
-			destinatario = "aribanegasc@gmail.com"
+			destinatario = "ticketpruebabi@gmail.com"
 					
 			msg = MIMEMultipart()
 
@@ -76,7 +76,7 @@ def ingresar_ticket(request):
 
 			msg.attach(MIMEText(body.encode('utf-8'), 'html', 'utf-8'))	
 			username = 'denisduron83@gmail.com'
-			password = 'Cecili@du2008'		
+			password = 'Cecili@du2008'
 			try:
 				server = smtplib.SMTP('smtp.gmail.com',587)
 				server.starttls()
@@ -86,6 +86,7 @@ def ingresar_ticket(request):
 			except Exception as e:
 				print e
 	except Exception as e:
+		print e
 		mensaje = 'error'
 
 	ctx = {	
@@ -98,10 +99,16 @@ def ingresar_ticket(request):
 
 @login_required()
 def listado_tickets(request):
+
 	if request.user.is_superuser:
 		lista = Ticket.objects.all().order_by('id')
+	elif request.user.is_active:
+		lista = Ticket.objects.filter(asignadoA=request.user)
 	else:
 		lista = Ticket.objects.filter(usuarioCreador=request.user)
+	
+
+
 	return render(request, 'ticket_listado.html', {'lista':lista})
 
 
@@ -117,7 +124,7 @@ def ticket_editar(request, id_ticket):
 		else:
 			formulario_ingreso = TicketForm(request.POST, instance=ticket)			
 			encargado = EncargadoCliente.objects.get(codUsuario=request.user)
-			ticket.codProyecto = Proyecto.objects.get(pk=request.POST.get('codProyecto'))
+			ticket.Proyecto = Proyecto.objects.get(pk=request.POST.get('Proyecto'))
 			ticket.codEncargadoCliente = encargado
 			ticket.cliente = Cliente.objects.get(pk=encargado.cliente.pk)
 			ticket.titulo = None if request.POST.get('titulo') == '' else request.POST.get('titulo')

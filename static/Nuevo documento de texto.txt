@@ -1,0 +1,5 @@
+solo el super usuario puede agregar nuevos proyectos
+
+
+PARA ASIGNAR LOS PROYECTOS QUE PUEDE VER CADA USUARIO
+	ES EN LA TABLA encargadoClientes, alli se hace la relacion

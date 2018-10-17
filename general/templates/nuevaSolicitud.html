@@ -1,15 +1,32 @@
-{% extends 'base.html' %} {% load staticfiles %} {% load bootstrap %} {% block title %} Nueva Solicitud {% endblock %} {% block contenido %}
+{% extends 'base.html' %} 
+{% load staticfiles %} 
+{% load bootstrap %} 
+
+{% block title %} 
+
+    Nueva Solicitud 
+    
+{% endblock %}
+
+{% block contenido %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-
-<script src="{% static 'plugins/select2/select2.min.js' %}"></script>
-
+<!-- <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> -->
+<link rel="stylesheet" href="{% static 'css/bootstrapValidator.css' %}">
 <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
 <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
 <link rel="stylesheet" href="{% static 'css/AdminLTE.css' %}">
 
-<link href="{% static 'plugins/iCheck/square/blue.css' %}" rel="stylesheet">
-<script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
+
+
+<script src="{% static 'plugins/select2/select2.min.js' %}"></script>
+
+<!-- <script src="{% static 'js/jquery-2.2.3.min.js'  %}"></script> -->
+<!-- <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
+
+
+
+
+
 
 <div class="box box-solid box-primary">
 
@@ -25,14 +42,14 @@
 
 
         <form method="post" accept-charset="utf-8" id="formulario" class="form-horizontal" enctype='multipart/form-data'>
-            <!-- novalidate -->
+
             {% csrf_token %}
-            <!-- <p class="page-header"></p> -->
+
 
             <br>
             <div class="row">
                 <div class="col-sm-5">
-                    {{formulario_ingreso.codProyecto|bootstrap_horizontal:'col-xs-3'}}
+                    {{formulario_ingreso.Proyecto|bootstrap_horizontal:'col-xs-3'}}
                 </div>
                 <div class="col-sm-5">
                     {{formulario_ingreso.titulo|bootstrap_horizontal:'col-xs-3'}}
@@ -69,7 +86,17 @@
                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                             <span class="sr-only">Error:</span> La solicitud ha sido enviada exitosamente
                         </div>
-                    </div>{% endif %} {% endif %}
+                    </div>
+                    {% elif mensaje == 'error' %}
+
+                    <div class="text-center">
+                        <div id="error" class="alert alert-danger" role="alert">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only">Error:</span> Algo salió mal, no se ha guardado la solicitud
+                        </div>
+                    </div>
+
+                    {% endif %} {% endif %}
 
                 </div>
 
@@ -95,13 +122,78 @@
 <!-- Bootstrap 3.3.6 -->
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
+<script src="{% static 'js/jquery-1.10.2.min.js'  %}"></script>
+<script src="{% static 'js/bootstrapValidator.js' %}"></script>
+
 <script>
     $(document).ready(function() {
 
-        $('#exito').fadeIn('slow').delay(7000).fadeOut('slow');
+        $('#exito').fadeIn('slow').delay(10000).fadeOut('slow');
+        $('#error').fadeIn('slow').delay(10000).fadeOut('slow');
 
 
+
+
+
+        $('#formulario').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            //group: '.form-group',
+            fields: {
+                descripcion_ticket: {
+                    // group: '.group',
+                    validators: {
+                        notEmpty: {
+                            message: 'El proyecto is required and cannot be empty'
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 30,
+                            message: 'The username must be more than 6 and less than 30 characters long'
+                        }
+                    }
+                },
+                // lastName: {
+                //     // The "group" option can be set via HTML attribute
+                //     // <input type="text" class="form-control" name="lastName" data-bv-group=".group" />
+                //     validators: {
+                //         notEmpty: {
+                //             message: 'The last name is required and cannot be empty'
+                //         }
+                //     }
+                // },
+                // username: {
+                //     message: 'The username is not valid',
+                //     validators: {
+                //         notEmpty: {
+                //             message: 'The username is required and cannot be empty'
+                //         },
+                //         stringLength: {
+                //             min: 6,
+                //             max: 30,
+                //             message: 'The username must be more than 6 and less than 30 characters long'
+                //         },
+                //         regexp: {
+                //             regexp: /^[a-zA-Z0-9_\.]+$/,
+                //             message: 'The username can only consist of alphabetical, number, dot and underscore'
+                //         },
+                //         different: {
+                //             field: 'password',
+                //             message: 'The username and password cannot be the same as each other'
+                //         }
+                //     }
+                // }
+              
+                
+            }
+        });
     });
+
+
 </script>
 
 

@@ -62,7 +62,7 @@
 								{% if request.user.is_superuser %}
 								<th>ESTADO</th>
 								<!-- <th>ARCHIVO</th>                 -->
-								<th>Encargado</th>
+								<th>RESPONSABLE</th>
 								{% endif %}
 								<th>OPCIONES</th>
 							</tr>
@@ -74,7 +74,7 @@
 						<tr>
 							<td>{{ data.id }}</td>
 							<td>{{ data.titulo }}</td>
-							<td>{{ data.codProyecto }}</td>
+							<td>{{ data.Proyecto }}</td>
 							<td>{{ data.prioridad }}</td>
 							{% if request.user.is_superuser %}
 							<td>{{ data.codEstado }}</td>

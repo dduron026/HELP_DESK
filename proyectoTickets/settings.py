@@ -62,7 +62,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'TICKETS',
-        'HOST': 'CECILIA',
+        'HOST': '',
         'USER': '',
         'PASSWORD': '',
                 'OPTIONS': {
@@ -89,9 +89,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'en-us'
+# en-us
+LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Mexico_City'
 
 USE_I18N = True
 

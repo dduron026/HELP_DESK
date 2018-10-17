@@ -19,6 +19,8 @@ class Cliente(models.Model):
 class Proyecto(models.Model):
 	nombre_proyecto = models.CharField(db_column='NombreProyecto', max_length=200, blank=True, null=True)
 	cliente = models.ForeignKey('Cliente', db_column='CodCliente')
+	codUsuario = models.ForeignKey(User, db_column='CodUsuario')
+
 
 	class Meta:
 		db_table = 'Proyectos'
@@ -33,6 +35,8 @@ class EncargadoCliente(models.Model):
 	class Meta:
 		db_table = 'EncargadoClientes'
 
+
+
 class Estado(models.Model):
 	descripcion_estado = models.CharField(db_column='DescripcionEstado', max_length=200, blank=True, null=True)
 
@@ -46,7 +50,7 @@ class Estado(models.Model):
 
 class Ticket(models.Model):
 	cliente = models.ForeignKey('Cliente', db_column='CodCliente')
-	codProyecto = models.ForeignKey('Proyecto', db_column='CodProyecto')
+	Proyecto = models.ForeignKey('Proyecto', db_column='CodProyecto')
 	codEncargadoCliente = models.ForeignKey('EncargadoCliente', db_column='CodEncargadoCliente')
 	codEstado = models.ForeignKey('Estado', db_column='CodEstado')
 	comentario = models.TextField(max_length=500, blank=False)		

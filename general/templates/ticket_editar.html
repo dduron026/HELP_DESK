@@ -1,11 +1,19 @@
-{% extends 'base.html' %} {% load staticfiles %} {% load bootstrap %} {% block title %} Editar Ticket {% endblock %} {% block contenido %}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="{% static 'plugins/select2/select2.min.js' %}"></script>
-<link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
-<link rel="stylesheet" href="{% static 'plugins/select2/select2-bootstrap.min.css' %}">
+{% extends 'base.html' %} 
+{% load staticfiles %} 
+{% load bootstrap %}
 
-<link href="{% static 'plugins/iCheck/square/blue.css' %}" rel="stylesheet">
-<script src="{% static 'plugins/iCheck/icheck.js' %}"></script>
+{% block title %} 
+
+    Editar Ticket {% endblock %} 
+
+{% block contenido %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <script src="{% static 'plugins/select2/select2.min.js' %}"></script> -->
+<!-- <link rel="stylesheet" href="{% static 'plugins/select2/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/select2/select2-bootstrap.min.css' %}"> -->
+
+<!-- <link href="{% static 'plugins/iCheck/square/blue.css' %}" rel="stylesheet">
+<script src="{% static 'plugins/iCheck/icheck.js' %}"></script> -->
 
 
 <style>
@@ -33,7 +41,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        background: rgba( 255, 255, 255, .8) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        /* background: rgba( 255, 255, 255, .8) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat; */
     }
 </style>
 <div class="box box-solid box-warning">
@@ -49,7 +57,7 @@
             <p class="page-header"></p>
             <div class="row">
                 <div class="col-sm-8">
-                    {{formulario_ingreso.codProyecto|bootstrap_horizontal:'col-xs-4'}}
+                    {{formulario_ingreso.Proyecto|bootstrap_horizontal:'col-xs-4'}}
                 </div>
             </div>
 
