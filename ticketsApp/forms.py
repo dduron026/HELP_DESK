@@ -20,7 +20,7 @@ class TicketForm(ModelForm):
 	# codProyecto = forms.ModelChoiceField(label='Proyecto')
 
 	prioridad = forms.ChoiceField(choices=PRIORIDAD, required=True)
-	comentario = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'3' ,'cols':'50'}), required=True)
+	comentario = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'3' ,'cols':'50'}), required=False)
 	descripcion_ticket = forms.CharField(widget=forms.Textarea(attrs={ 'rows':'3' ,'cols':'50'}), label='Descripción', required=True)
 	
 	class Meta:

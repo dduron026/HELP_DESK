@@ -40,74 +40,75 @@
 
 		<h3 class="box-title">BANDEJA DE ENTRADA</h3>
 		<!-- <p class="pull-right" id="fecha">Fecha: {% now 'd-m-Y' %}</p> -->
-		
+
 	</div>
 
 
 	<div class="box-body ">
-	
 
-	 <!-- page-header -->
-			<!-- <h4 class="text-center sub-style">BANDEJA DE ENTRADA</h4><hr> -->
 
-	<table id="tabla" class="table table-bordered table-hover table-responsive">
+		<!-- page-header -->
+		<!-- <h4 class="text-center sub-style">BANDEJA DE ENTRADA</h4><hr> -->
 
-					<thead>
+		<table id="tabla" class="table table-bordered table-hover table-responsive">
 
-							<tr>
-								<th>#</th>
-								<th>TITULO</th>
-								<th>PROYECTO</th>
-								<th>PRIORIDAD</th>
-								{% if request.user.is_superuser %}
-								<th>ESTADO</th>
-								<!-- <th>ARCHIVO</th>                 -->
-								<th>RESPONSABLE</th>
-								{% endif %}
-								<th>OPCIONES</th>
-							</tr>
+			<thead>
 
-					</thead>
-		<tbody>
-						{% if lista %}
-							{% for data in lista %}
-						<tr>
-							<td>{{ data.id }}</td>
-							<td>{{ data.titulo }}</td>
-							<td>{{ data.Proyecto }}</td>
-							<td>{{ data.prioridad }}</td>
-							{% if request.user.is_superuser %}
-							<td>{{ data.codEstado }}</td>
-							<!-- <td>{{ data.archivo }}</td> -->
-							<td>{{ data.asignadoA }}</td>
-						{% endif %}
+				<tr>
+					<th>#</th>
+					<th>TITULO</th>
+					<th>PROYECTO</th>
+					<th>PRIORIDAD</th>
+					{% if request.user.is_superuser %}
+					<th>ESTADO</th>
+					<!-- <th>ARCHIVO</th>                 -->
+					<th>RESPONSABLE</th>
+					{% endif %}
+					<th>OPCIONES</th>
+				</tr>
 
-							<td style="text-align: center;">
+			</thead>
+			<tbody>
+				{% if lista %}
+				{% for data in lista %}
+				<tr>
+					<td>{{ data.id }}</td>
+					<td>{{ data.titulo }}</td>
+					<td>{{ data.Proyecto }}</td>
+					<td>{{ data.prioridad }}</td>
+					{% if request.user.is_superuser %}
+					<td>{{ data.codEstado }}</td>
+					<!-- <td>{{ data.archivo }}</td> -->
+					<td>{{ data.asignadoA }}</td>
+					{% endif %}
 
-									<div  class="dropdown">
-											<button  class="glyphicon glyphicon-list" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<td style="text-align: center;">
 
-											</button>
-											<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<div class="dropdown">
+							<button class="glyphicon glyphicon-list" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+							 aria-expanded="false">
 
-												<li><a class="glyphicon glyphicon-pencil" href="{% url 'ticket_editar' data.id %}"> Editar</a></li>
-												<li><a class="glyphicon glyphicon-asterisk" href="{% url 'ticket_detalle' data.id %}"> Detalle</a></li>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 
-												<!-- <li><a class="glyphicon glyphicon-off" data-toggle="modal" data-target="#myModal"> Cerrar Ticket</a></li> -->
+								<li><a class="glyphicon glyphicon-pencil" href="{% url 'ticket_editar' data.id %}"> Editar</a></li>
+								<li><a class="glyphicon glyphicon-asterisk" href="{% url 'ticket_detalle' data.id %}"> Detalle</a></li>
 
-											</ul>
-									</div>
+								<!-- <li><a class="glyphicon glyphicon-off" data-toggle="modal" data-target="#myModal"> Cerrar Ticket</a></li> -->
 
-								</td>
+							</ul>
+						</div>
 
-						</tr>
-							{% endfor %}
-							{% else %}
-							<h4>no hay Registros</h4>
-						{% endif %}
+					</td>
 
-		</tbody>
-	</table>
+				</tr>
+				{% endfor %}
+				{% else %}
+				<h4>no hay Registros</h4>
+				{% endif %}
+
+			</tbody>
+		</table>
 
 	</div>
 </div>
@@ -135,24 +136,24 @@
 	</div> -->
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(function () {
 
-	$("#tabla").DataTable({
-      "language": {
-            "lengthMenu": "_MENU_ registros",
-            "zeroRecords": "No se encontro ningun registro",
-            "info": "Pagina _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros",
-            "infoFiltered": "(filtrado de _MAX_ registros)",
-            "search":         "Buscar:",
-            "paginate": {
-                 "first":      "Primero",
-                 "last":       "Ultimo",
-                 "next":       "Siguiente",
-                 "previous":   "Anterior"
-            },
-        }
-   });
+		$("#tabla").DataTable({
+			"language": {
+				"lengthMenu": "_MENU_ registros",
+				"zeroRecords": "No se encontro ningun registro",
+				"info": "Pagina _PAGE_ de _PAGES_",
+				"infoEmpty": "No hay registros",
+				"infoFiltered": "(filtrado de _MAX_ registros)",
+				"search": "Buscar:",
+				"paginate": {
+					"first": "Primero",
+					"last": "Ultimo",
+					"next": "Siguiente",
+					"previous": "Anterior"
+				},
+			}
+		});
 
 	});
 </script>

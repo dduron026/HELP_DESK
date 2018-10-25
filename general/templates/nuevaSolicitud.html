@@ -33,7 +33,7 @@
 
     <div class="box-header text-center">
         <span class="glyphicon glyphicon-plus-sign pull-left"></span>
-        <h1 class="box-title">INGRESAR SOLICITUD</h1>
+        <h1 class="box-title">INGRESAR TICKET</h1>
     </div>
 
     <div class="box-body">
@@ -122,7 +122,7 @@
 <!-- Bootstrap 3.3.6 -->
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-<script src="{% static 'js/jquery-1.10.2.min.js'  %}"></script>
+<!-- <script src="{% static 'js/jquery-1.10.2.min.js'  %}"></script> -->
 <script src="{% static 'js/bootstrapValidator.js' %}"></script>
 
 <script>
@@ -130,9 +130,6 @@
 
         $('#exito').fadeIn('slow').delay(10000).fadeOut('slow');
         $('#error').fadeIn('slow').delay(10000).fadeOut('slow');
-
-
-
 
 
         $('#formulario').bootstrapValidator({
@@ -148,13 +145,43 @@
                     // group: '.group',
                     validators: {
                         notEmpty: {
-                            message: 'El proyecto is required and cannot be empty'
+                            message: 'La Descripción es requerida'
                         },
                         stringLength: {
-                            min: 6,
-                            max: 30,
-                            message: 'The username must be more than 6 and less than 30 characters long'
+                            min: 8,
+                            max: 300,
+                            message: 'La Descripcion debe contener al menos 8 caracteres'
                         }
+                    }
+                },
+                Proyecto: {
+                    // group: '.group',
+                    validators: {
+                        notEmpty: {
+                            message: 'Elija un Proyecto'
+                        }                        
+                    }
+                },
+                titulo: {
+                    // group: '.group',
+                    validators: {
+                        notEmpty: {
+                            message: 'El Título es requerido'
+                        },
+                        stringLength: {
+                            min: 8,
+                            max: 300,
+                            message: 'El Título debe contener al menos 8 caracteres'
+                        }
+                    }
+                },
+                prioridad: {
+                    // group: '.group',
+                    validators: {
+                        notEmpty: {
+                            message: 'Elija su nivel de prioridad'
+                        }
+                        
                     }
                 },
                 // lastName: {

@@ -58,20 +58,32 @@ WSGI_APPLICATION = 'proyectoTickets.wsgi.application'
 
 
 # Base de datos
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'sql_server.pyodbc',
+#         'NAME': 'TICKETS1',
+#         'HOST': '',
+#         'USER': '',
+#         'PASSWORD': '',
+#                 'OPTIONS': {
+#             'unicode_results': True,
+#             'extra_params': 'tds_version=8.0'
+#         },
+
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'TICKETS',
-        'HOST': '',
-        'USER': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'TICKETS1',
+        'USER': 'root',
         'PASSWORD': '',
-                'OPTIONS': {
-            'unicode_results': True,
-            'extra_params': 'tds_version=8.0'
-        },
-
-    }
+               }
 }
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

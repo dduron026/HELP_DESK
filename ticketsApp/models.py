@@ -53,15 +53,15 @@ class Ticket(models.Model):
 	Proyecto = models.ForeignKey('Proyecto', db_column='CodProyecto')
 	codEncargadoCliente = models.ForeignKey('EncargadoCliente', db_column='CodEncargadoCliente')
 	codEstado = models.ForeignKey('Estado', db_column='CodEstado')
-	comentario = models.TextField(max_length=500, blank=False)		
+	comentario = models.TextField(max_length=500, blank=True, null=True)		
 	usuarioCreador = models.ForeignKey(User, db_column='UsuarioCreador', related_name='UsuarioCreador')
 	UsuarioModificador = models.ForeignKey(User,db_column='UsuarioModificador', related_name='UsuarioModificador')	
 	fechaCreacion = models.DateTimeField(db_column='FechaCreacion', auto_now_add=True)
 	fechaModificacion = models.DateTimeField(db_column='FechaModificacion', auto_now=True)
-	titulo = models.CharField(db_column='TituloTicket', max_length=200, blank=True, null=True)
+	titulo = models.CharField(db_column='TituloTicket', max_length=200, blank=False, null=False)
 	prioridad = models.CharField(db_column='Prioridad', max_length=20)
 	archivo = models.FileField(db_column='Archivo', upload_to='uploads/', null=True, blank=True)
-	descripcion_ticket = models.CharField(db_column='DescripcionTicket', max_length=500, blank=True, null=True)
+	descripcion_ticket = models.CharField(db_column='DescripcionTicket', max_length=500, blank=False, null=False)
 	asignadoA = models.ForeignKey(User, db_column='AsignadoA', blank=True, null=True)
 
 
